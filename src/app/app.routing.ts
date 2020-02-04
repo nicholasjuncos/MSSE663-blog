@@ -19,7 +19,7 @@ import { RegisterComponent } from './examples/register/register.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import { PricingComponent } from './examples/pricing/pricing.component';
 
-const routes: Routes =[
+const routes: Routes = [
     { path: '', redirectTo: 'presentation', pathMatch: 'full' },
     { path: 'presentation',         component: PresentationComponent },
     { path: 'components',           component: ComponentsComponent },
@@ -42,8 +42,8 @@ const routes: Routes =[
     imports: [
         CommonModule,
         BrowserModule,
-        RouterModule.forRoot(routes,{
-          useHash: true
+        RouterModule.forRoot(routes, {
+          useHash: false
         })
     ],
     exports: [

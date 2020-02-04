@@ -33,6 +33,7 @@ export const UserSchema = new Schema({
 UserSchema.pre('save', async function(next) {
   const user = this;
   if (user.isModified('password')) {
+    // @ts-ignore
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
@@ -52,6 +53,7 @@ UserSchema.statics.findByCredentials = async (username: string, password: string
   if (!user) {
     throw new Error('Invalid login credentials');
   }
+  // @ts-ignore
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {
     throw new Error('Invalid login credentials');

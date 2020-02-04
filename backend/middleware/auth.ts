@@ -8,6 +8,7 @@ export const auth = async (req: any, res: any, next: any) => {
     const token = req.header('Authorization').replace('Bearer ', '');
     const data = jwt.verify(token, databaseSecret);
     try {
+      // @ts-ignore
       const user = await User.findOne({_id: data._id, 'tokens.token': token});
       if (!user) {
         throw new Error();

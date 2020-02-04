@@ -1,6 +1,6 @@
 {
-  "name": "now-ui-kit-pro-angular",
-  "version": "1.1.1",
+  "name": "msse663-s8-w1-group-project",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,12 +25,15 @@
     "@angular/router": "7.2.8",
     "@ng-bootstrap/ng-bootstrap": "4.0.0",
     "angular2-multiselect-dropdown": "4.2.1",
+    "body-parser": "^1.19.0",
     "bootstrap": "4.1.3",
     "copy-webpack-plugin": "5.0.0",
     "core-js": "2.6.5",
+    "express": "^4.17.1",
     "font-awesome": "4.7.0",
     "jquery": "3.3.1",
     "jw-bootstrap-switch-ng2": "2.0.5",
+    "mongoose": "^5.8.10",
     "ng2-nouislider": "1.7.13",
     "ngx-chips": "2.0.0-beta.0",
     "ngx-gallery": "5.9.1",
@@ -39,6 +42,7 @@
     "rellax": "1.7.1",
     "rxjs": "6.4.0",
     "rxjs-compat": "6.4.0",
+    "tslib": "^1.10.0",
     "zone.js": "0.8.29"
   },
   "devDependencies": {
@@ -47,6 +51,7 @@
     "@angular/compiler-cli": "7.2.8",
     "@angular/language-service": "7.2.8",
     "@types/jasmine": "3.3.9",
+    "@types/jasminewd2": "~2.0.3",
     "@types/node": "11.10.5",
     "codelyzer": "4.5.0",
     "jasmine-core": "3.3.0",
@@ -57,9 +62,12 @@
     "karma-coverage-istanbul-reporter": "2.0.5",
     "karma-jasmine": "2.0.1",
     "karma-jasmine-html-reporter": "1.4.0",
+    "node-sass": "^4.13.1",
     "protractor": "5.4.2",
     "ts-node": "8.0.3",
     "tslint": "5.13.1",
-    "typescript": "3.1.6"
+    "typescript": "3.1.6",
+    "webpack": "^4.41.5",
+    "yarn": "^1.21.1"
   }
 }
