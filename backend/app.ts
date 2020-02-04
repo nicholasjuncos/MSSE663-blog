@@ -5,7 +5,7 @@ import bodyParser = require('body-parser');
 import cors = require('cors');
 
 import { databaseName } from './environment';
-import { user3Routes } from './routes/user.routes';
+import { userRoutes } from './routes/user.routes';
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.use(cors());
 // Body Parser Middleware
 app.use(bodyParser.json());
 
-app.use('/users', user3Routes);
+app.use('/users', userRoutes);
 
 // Start Server
 app.listen(port, () => {

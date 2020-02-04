@@ -1,13 +1,15 @@
 import express = require('express');
 import { User } from '../models/user.models';
 import { auth } from '../middleware/auth';
+import {updateUser} from '../controllers/user.controller';
 
-export const user3Routes = express.Router();
+export const userRoutes = express.Router();
 
-user3Routes.post('/register', async (req: any, res: any) => {
+userRoutes.post('/register', async (req: any, res: any) => {
   try {
     const user = new User(req.body);
     await user.save();
+    // @ts-ignore
     const token = await user.generateAuthToken();
     res.status(201).send({user, token});
   } catch (error) {
@@ -15,10 +17,11 @@ user3Routes.post('/register', async (req: any, res: any) => {
   }
 });
 
-user3Routes.post('/login', async (req: any, res: any) => {
+userRoutes.post('/login', async (req: any, res: any) => {
   // Login a registered user
   try {
     const {username, password} = req.body;
+    // @ts-ignore
     const user = await User.findByCredentials(username, password);
     if (!user) {
       return res.status(401).send({error: 'Login failed! Check authentication credentials'});
@@ -31,13 +34,13 @@ user3Routes.post('/login', async (req: any, res: any) => {
 
 });
 
-user3Routes.get('/me', auth, async (req: any, res: any) => {
+userRoutes.get('/me', auth, async (req: any, res: any) => {
   res.send(req.user);
 });
 
-user3Routes.post('/logout', auth, async (req: any, res: any) => {
+userRoutes.post('/logout', auth, async (req: any, res: any) => {
   try {
-    req.user.tokens = req.user.tokens.filter((token) => {
+    req.user.tokens = req.user.tokens.filter((token: any) => {
       return token.token !== req.token;
     });
     await req.user.save();
@@ -47,7 +50,7 @@ user3Routes.post('/logout', auth, async (req: any, res: any) => {
   }
 });
 
-user3Routes.post('/logoutAll', auth, async (req: any, res: any) => {
+userRoutes.post('/logoutAll', auth, async (req: any, res: any) => {
   try {
     req.user.tokens.splice(0, req.user.tokens.length);
     await req.user.save();
@@ -57,4 +60,6 @@ user3Routes.post('/logoutAll', auth, async (req: any, res: any) => {
   }
 });
 
-// module.exports = user3Routes;
+userRoutes.put('/update', auth, updateUser);
+
+// module.exports = userRoutes;

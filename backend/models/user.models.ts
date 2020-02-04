@@ -7,6 +7,7 @@ interface User {
   id: number;
   username: string;
   password: string;
+  isAuthor: boolean;
   tokens: [];
 }
 
@@ -21,6 +22,10 @@ export const UserSchema = new Schema({
     type: String,
     required: true,
     minLength: 6
+  },
+  isAuthor: {
+    type: Boolean,
+    default: false
   },
   tokens: [{
     token: {
