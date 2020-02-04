@@ -1,7 +1,7 @@
 import jwt = require('jsonwebtoken');
 
 import {databaseSecret} from '../environment';
-import { User } from '../models/user.models';
+import { User } from '../models/user.model';
 
 export const auth = async (req: any, res: any, next: any) => {
   try {

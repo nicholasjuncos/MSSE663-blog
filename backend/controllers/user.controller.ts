@@ -1,4 +1,4 @@
-import {User} from '../models/user.models';
+import {User} from '../models/user.model';
 
 export const updateUser = async (req: any, res: any, next: any) => {
     if (req.body.password) {

@@ -1,5 +1,5 @@
 import express = require('express');
-import { User } from '../models/user.models';
+import { User } from '../models/user.model';
 import { auth } from '../middleware/auth';
 import {updateUser} from '../controllers/user.controller';
 
