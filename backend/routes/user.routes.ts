@@ -1,4 +1,4 @@
-import express = require('express');
+import * as express from 'express';
 import { auth } from '../middleware/auth';
 import { registerUser, loginUser, getLoggedInUser, logoutAllUser, logoutUser, updateUser } from '../controllers/user.controller';
 

@@ -1,13 +1,14 @@
 import {model, Schema} from 'mongoose';
-import bcrypt = require('bcryptjs');
-import jwt = require('jsonwebtoken');
+import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 import { databaseSecret } from '../environment';
 
-interface User {
+export interface UserModel {
   id: number;
   username: string;
   password: string;
   isAuthor: boolean;
+  photoURL?: string;
   tokens: [];
 }
 
