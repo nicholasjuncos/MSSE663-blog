@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element : ElementRef) {
+    constructor(public location: Location, private element: ElementRef) {
         this.sidebarVisible = false;
     }
 
@@ -45,22 +45,12 @@ export class NavbarComponent implements OnInit {
         }
     };
     isHome() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
+        const title = this.location.prepareExternalUrl(this.location.path());
 
-        if( titlee === '/home' ) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return title === '/home';
     }
     isDocumentation() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if( titlee === '/documentation' ) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        const title = this.location.prepareExternalUrl(this.location.path());
+        return title === '/documentation';
     }
 }

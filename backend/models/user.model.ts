@@ -23,10 +23,6 @@ export const UserSchema = new Schema({
     required: true,
     minLength: 6
   },
-  isAuthor: {
-    type: Boolean,
-    default: false
-  },
   tokens: [{
     token: {
       type: String,

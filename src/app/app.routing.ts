@@ -20,7 +20,9 @@ import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.compo
 import { PricingComponent } from './examples/pricing/pricing.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'presentation', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'register',             component: RegisterComponent },
+    { path: 'login',                component: LoginComponent },
     { path: 'presentation',         component: PresentationComponent },
     { path: 'components',           component: ComponentsComponent },
     { path: 'sections',             component: SectionsComponent },
