@@ -5,6 +5,7 @@ import 'rxjs/add/operator/filter';
 import {DOCUMENT} from '@angular/platform-browser';
 import {LocationStrategy, PlatformLocation, Location} from '@angular/common';
 import {NavbarComponent} from './shared/navbar/navbar.component';
+import {AuthService} from './user/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
         private router: Router,
         @Inject(DOCUMENT, ) private document: any,
         private element: ElementRef,
-        public location: Location
+        public location: Location,
+        public authService: AuthService
     ) {}
 
     ngOnInit() {
@@ -66,6 +68,10 @@ export class AppComponent implements OnInit {
 
             }
         }
+    }
+
+    logout() {
+        this.authService.logout();
     }
 
     removeFooter() {

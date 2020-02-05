@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public router: Router,
     private route: ActivatedRoute,
   ) {
-    if (this.auth.isLoggedIn) {
+    if (this.auth.isLoggedIn()) {
     this.router.navigate(['/']);
     }
   }
