@@ -74,6 +74,10 @@ export class AppComponent implements OnInit {
         this.authService.logout();
     }
 
+    logoutAll() {
+        this.authService.logoutAll();
+    }
+
     removeFooter() {
         let title = this.location.prepareExternalUrl(this.location.path());
         title = title.slice(1);

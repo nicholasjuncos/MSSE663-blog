@@ -47,9 +47,21 @@ export class AuthService {
     }
 
     logout() {
-        if (localStorage.removeItem('access_token') == null) {
-            this.router.navigate(['login']);
-        }
+        return this.httpClient.post<any>(`${this.API_URL}/users/logout`, {}).pipe(catchError(this.handleError))
+            .subscribe((res: any) => {
+                if (localStorage.removeItem('access_token') == null) {
+                    this.router.navigate(['login']);
+                }
+            })
+    }
+
+    logoutAll() {
+        return this.httpClient.post<any>(`${this.API_URL}/users/logoutAll`, {}).pipe(catchError(this.handleError))
+            .subscribe((res: any) => {
+                if (localStorage.removeItem('access_token') == null) {
+                    this.router.navigate(['login']);
+                }
+            })
     }
 
     getUserProfile(id): Observable<any> {
