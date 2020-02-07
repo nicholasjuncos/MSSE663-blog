@@ -66,7 +66,7 @@ export const loginUser = async (req: any, res: any) => {
         const token = await generateAuthToken(user);
         res.send({user, token});
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send('AUTH_FAIL');
     }
 };
 

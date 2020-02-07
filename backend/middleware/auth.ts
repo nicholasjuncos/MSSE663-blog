@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 
 export const auth = async (req: any, res: any, next: any) => {
   try {
-    const token = req.header('Authorization').replace('Bearer ', '');
+    const token = req.header('Authorization').replace('JWT ', '');
     const data = jwt.verify(token, databaseSecret);
     try {
       // @ts-ignore

@@ -20,21 +20,21 @@ export class AuthService {
     constructor(private httpClient: HttpClient, public router: Router) {
     }
 
-    register(user: User): Observable<any> {
-        return this.httpClient.post(`${this.API_URL}/users/register`, user).pipe(
+    register(username: string, password: string): Observable<any> {
+        return this.httpClient.post(`${this.API_URL}/users/register`, {username, password}).pipe(
             catchError(this.handleError)
         )
     }
 
     login(user: User) {
-        return this.httpClient.post<any>(`${this.API_URL}/users/login`, user)
+        return this.httpClient.post<any>(`${this.API_URL}/users/login`, user).pipe(catchError(this.handleError))
             .subscribe((res: any) => {
                 localStorage.setItem('access_token', res.token);
-                this.getUserProfile(res._id).subscribe((res) => {
-                    this.currentUser = res;
-                    this.router.navigate(['/profile' + res.msg._id]);
+                this.getUserProfile(res.user._id).subscribe((res) => {
+                    this.currentUser = res.user;
+                    this.router.navigate(['/profile']);
                 })
-            })
+            }, error => (console.log(error)))
     }
 
     getAccessToken() {
@@ -48,28 +48,37 @@ export class AuthService {
 
     logout() {
         if (localStorage.removeItem('access_token') == null) {
-            this.router.navigate(['users/login']);
+            this.router.navigate(['login']);
         }
     }
 
     getUserProfile(id): Observable<any> {
-        return this.httpClient.get(`${this.API_URL}/users/profile/${id}`, {headers: this.headers}).pipe(
+        return this.httpClient.get(`${this.API_URL}/users/me`).pipe(
             map((res: Response) => {
+                console.log(res);
                 return res || {}
             }),
             catchError(this.handleError)
         )
     }
 
-    handleError(error: HttpErrorResponse) {
-        let msg = '';
-        if (error.error instanceof ErrorEvent) {
-            // client-side error
-            msg = error.error.message;
-        } else {
-            // server-side error
-            msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    handleError(errorRes: HttpErrorResponse) {
+        let errorMessage = 'An unknown error occurred!';
+        if (!errorRes.error) {
+            return throwError(errorMessage);
         }
-        return throwError(msg);
+        const errorCode = errorRes.error;
+        switch (errorCode) {
+            case 'USERNAME_EXISTS':
+                errorMessage = 'This username exists already';
+                break;
+            case 'PASS_TOO_SHORT':
+                errorMessage = 'The password must be at least 6 characters long';
+                break;
+            case 'AUTH_FAIL':
+                errorMessage = 'The password or email provided was incorrect';
+                break;
+        }
+        return throwError(errorMessage);
     }
 }
