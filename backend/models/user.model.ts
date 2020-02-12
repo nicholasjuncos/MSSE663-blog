@@ -2,6 +2,8 @@ import {model, Schema} from 'mongoose';
 
 export interface UserModel {
   id: number;
+  firstName: string;
+  lastName: string;
   username: string;
   password: string;
   isAuthor: boolean;
@@ -11,6 +13,12 @@ export interface UserModel {
 
 // User Schema
 export const UserSchema = new Schema<UserModel>({
+  firstName: {
+    type: String
+  },
+  lastName: {
+    type: String
+  },
   username: {
     type: String,
     required: true,

@@ -15,12 +15,12 @@ const findByCredentials = async (username: string, password: string) => {
     // Search for a user by username and password.
     const user = await User.findOne({username});
     if (!user) {
-        throw {'error': 'Invalid login credentials'};
+        throw new Error('AUTH_FAIL');
     }
     // @ts-ignore
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
-        throw {'error': 'Invalid login credentials'};
+        throw new Error('AUTH_FAIL');
     }
     return user;
 };
@@ -29,24 +29,26 @@ export const registerUser = async (req: any, res: any) => {
     try {
         // Req.body should have username and password. isAuthor also doubles as staff for this application
         const data = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             username: req.body.username,
             password: req.body.password,
             isAuthor: false
         };
         if (data.password.length < 6) {
-            res.status(400).send({'error': 'Password must be at least 6 characters long.'})
+            res.status(400).send('AUTH_PASS_LENGTH')
         } else {
             data.password = await bcrypt.hash(data.password, 8);
             const user = new User(data);
-            // user.password = await bcrypt.hash(user.password, 8);
             const token = await generateAuthToken(user);
             res.status(201).send({user, token});
         }
     } catch (error) {
         if (error['code'] === 11000) {
-            res.status(400).send({'error': 'Username already exists'})
+            res.status(400).send('AUTH_USERNAME')
         } else {
-            res.status(400).send({'error': error.errorMsg});
+            console.log(error.errorMsg);
+            res.status(400).send('OTHER_ERROR');
         }
     }
 };
@@ -61,7 +63,7 @@ export const loginUser = async (req: any, res: any) => {
         const {username, password} = req.body;
         const user = await findByCredentials(username, password);
         if (!user) {
-            return res.status(401).send({error: 'Login failed! Check authentication credentials'});
+            return res.status(400).send('AUTH_FAIL');
         }
         const token = await generateAuthToken(user);
         res.send({user, token});
@@ -98,10 +100,16 @@ export const updateUser = async (req: any, res: any) => {
     if (req.body.password) {
         newData['password'] = req.body.password;
         if (newData['password'].length < 6) {
-            return res.status(400).send({'error': 'Password must be at least 6 characters long.'})
+            return res.status(400).send('AUTH_PASS_LENGTH')
         } else {
             newData['password'] = await bcrypt.hash(newData['password'], 8);
         }
+    }
+    if (req.body.firstName) {
+        newData['firstName'] = req.body.firstName;
+    }
+    if (req.body.lastName) {
+        newData['lastName'] = req.body.lastName;
     }
     if (req.body.isAuthor) {
         newData['isAuthor'] = req.body.isAuthor;
@@ -116,7 +124,7 @@ export const updateUser = async (req: any, res: any) => {
             $set: newData
         }, (error: any, data: any) => {
             if (error) {
-                res.status(500).send(error);
+                res.status(500).send('UPDATE_FAIL');
             } else {
                 res.send(data);
             }
