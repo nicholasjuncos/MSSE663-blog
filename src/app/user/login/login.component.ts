@@ -13,18 +13,24 @@ import {AuthService} from '../auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
     data: Date = new Date();
     loginForm: FormGroup;
+    loading = false;
+    submitted = false;
+    error: string;
     focus;
     focus1;
     returnUrl: string;
 
     constructor(
         public formBuilder: FormBuilder,
-        public auth: AuthService,
+        public authService: AuthService,
         public router: Router,
         private route: ActivatedRoute,
+        // private alertService: AlertService
     ) {
-        if (this.auth.isLoggedIn()) {
-            this.router.navigate(['/']);
+        if (this.authService.isLoggedIn()) {
+            // TODO: CHANGE WINDOW.ALERT() TO AN ALERT SERVICE
+            window.alert('Already Logged in!');
+            this.router.navigate(['/profile']);
         }
     }
 
@@ -38,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/profile';
     }
 
     ngOnDestroy() {
@@ -48,7 +54,25 @@ export class LoginComponent implements OnInit, OnDestroy {
         navbar.classList.remove('navbar-transparent');
     }
 
+    get f() { return this.loginForm.controls; }
+
     loginUser() {
-        this.auth.login(this.loginForm.value)
+        this.submitted = true;
+        if (this.loginForm.invalid) {
+            return;
+        }
+        this.loading = true;
+        this.authService.login(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    window.alert('Successfully Logged in!');
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.error = error;
+                    this.loading = false;
+                }
+            );
     }
 }

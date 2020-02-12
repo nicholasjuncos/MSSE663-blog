@@ -16,8 +16,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
                                 </div>
-                                <input type="text" class="form-control" formControlName="username" placeholder="username..." (focus)="focus=true"
-                                       (blur)="focus=false">
+                                <input type="text" class="form-control" formControlName="username"
+                                       placeholder="username..." (focus)="focus=true"
+                                       (blur)="focus=false" required>
+                                <small class="text-danger" *ngIf="submitted && f.username.errors">Username is required.</small>
                             </div>
                             <div class="input-group form-group-no-border input-lg"
                                  [ngClass]="{'input-group-focus':focus1===true}">
@@ -26,14 +28,18 @@
                                 </div>
                                 <input type="password" formControlName="password" placeholder="password..." class="form-control" (focus)="focus1=true"
                                        (blur)="focus1=false"/>
+                                <small class="text-danger" *ngIf="submitted && f.password.errors">Password is required.</small>
                             </div>
+                            <h6 *ngIf="submitted && error" class="text-danger" >{{ error }}</h6>
                         </div>
                         <div class="card-footer text-center">
-                          <button class="btn btn-primary">Login</button>
+                          <button [disabled]="loading" class="btn btn-primary">Login</button>
+                            <img *ngIf="loading"
+                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         </div>
                         <div class="pull-left">
                             <h6>
-                                <a href="#pablo" class="link footer-link">Create Account</a>
+                                <a [routerLink]="['/register']" class="link footer-link">Create Account</a>
                             </h6>
                         </div>
                         <div class="pull-right">
@@ -51,22 +57,22 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="https://www.creative-tim.com">
-                            Creative Tim
+                        <a [routerLink]="['/']">
+                            Mongo Blog
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.creative-tim.com/about-us">
+                        <a [routerLink]="['/']">
                             About Us
                         </a>
                     </li>
                     <li>
-                        <a href="http://blog.creative-tim.com">
+                        <a [routerLink]="['/']">
                             Blog
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.creative-tim.com/license">
+                        <a [routerLink]="['/']">
                             License
                         </a>
                     </li>
@@ -75,8 +81,8 @@
             <div class="copyright">
                 &copy;
                 {{data | date: 'yyyy'}}, Designed by
-                <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                and Coded by
+                Nicholas Juncos.
             </div>
         </div>
     </footer>
