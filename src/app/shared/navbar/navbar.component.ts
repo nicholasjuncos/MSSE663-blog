@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {AuthService} from '../../user/auth.service';
 
 @Component({
     selector: 'app-navbar',
@@ -10,7 +11,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element: ElementRef) {
+    constructor(public location: Location, private element: ElementRef, private authService: AuthService) {
         this.sidebarVisible = false;
     }
 
@@ -52,5 +53,13 @@ export class NavbarComponent implements OnInit {
     isDocumentation() {
         const title = this.location.prepareExternalUrl(this.location.path());
         return title === '/documentation';
+    }
+
+    logout() {
+        this.authService.logout();
+    }
+
+    logoutAll() {
+        this.authService.logoutAll();
     }
 }
