@@ -3,21 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { LogoutComponent } from './logout/logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { UserRoutingModule } from './user.routing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ImageUploadModule} from '../shared/image-upload/image-upload.module';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, LogoutComponent, ProfileComponent],
+  declarations: [LoginComponent, RegisterComponent, ProfileComponent],
     imports: [
         CommonModule,
         NgbModule,
         ReactiveFormsModule,
         RouterModule,
-        UserRoutingModule
+        UserRoutingModule,
+        ImageUploadModule
     ],
     exports: [
         LoginComponent

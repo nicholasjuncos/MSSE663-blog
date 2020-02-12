@@ -40,8 +40,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     navbar.classList.add('navbar-transparent');
 
     this.updateUserForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: [this.authService.currentUserValue.firstName, Validators.required],
+      lastName: [this.authService.currentUserValue.lastName, Validators.required],
+      img: ['', ],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     }, {
@@ -65,7 +66,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.authService.update(this.f.firstName.value, this.f.lastName.value, this.f.password.value)
+    console.log(this.f.img)
+    this.authService.update(this.f.firstName.value, this.f.lastName.value, this.f.password.value, this.f.img.value)
         .pipe(first())
         .subscribe(
             data => {

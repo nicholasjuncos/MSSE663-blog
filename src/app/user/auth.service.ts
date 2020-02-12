@@ -102,8 +102,13 @@ export class AuthService {
         );
     }
 
-    update(firstName: string, lastName: string, password: string) {
-        return this.httpClient.put<any>(`${this.API_URL}/users/update`, {firstName, lastName, password}).pipe(
+    update(firstName: string, lastName: string, password: string, img: string) {
+        if (img === '') {
+            const data = {firstName, lastName, password}
+        } else {
+            const data = {firstName, lastName, password, img}
+        }
+        return this.httpClient.put<any>(`${this.API_URL}/users/update`, {firstName, lastName, password, img}).pipe(
             map((res: any) => {
                 this.getUserProfile(res._id).subscribe((result) => {
                     this.currentUser = result;

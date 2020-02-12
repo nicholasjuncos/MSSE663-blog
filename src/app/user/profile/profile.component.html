@@ -13,30 +13,11 @@
           <h2>26</h2>
           <p>Comments</p>
         </div>
-        <div class="social-description">
-          <h2>26</h2>
-          <p>Comments</p>
-        </div>
-        <div class="social-description">
-          <h2>48</h2>
-          <p>Bookmarks</p>
-        </div>
       </div>
     </div>
   </div>
   <div class="section">
     <div class="container">
-      <div class="button-container">
-        <a href="#button" class="btn btn-primary btn-round btn-lg">Follow</a>
-        <a href="#button" class="btn btn-default btn-round btn-lg btn-icon" placement="top" ngbTooltip="Follow me on Twitter">
-          <i class="fa fa-twitter"></i>
-        </a>
-        <a href="#button" class="btn btn-default btn-round btn-lg btn-icon" placement="top" ngbTooltip="Follow me on Instagram">
-          <i class="fa fa-instagram"></i>
-        </a>
-      </div>
-      <h3 class="title">About me</h3>
-      <h5 class="description text-center">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</h5>
       <div class="row">
         <div class="col-md-12">
           <h4 class="title text-center">My Portfolio</h4>
@@ -48,7 +29,7 @@
               <ng-template ngbTabContent>
                 <div class="row">
                   <div class="col-md-5 ml-auto mr-auto">
-                    <div class="card card-background card-background-product card-raised" style="background-image: url('assets/img/bg23.jpg')">
+                    <div class="card card-background card-background-product card-raised" style="background-image: url('../../../assets/img/bg23.jpg')">
                       <div class="card-body">
                         <h2 class="card-title">Chair remake.</h2>
                         <p class="card-description text-white">
@@ -135,41 +116,47 @@
               </ng-template>
               <ng-template ngbTabContent>
                 <div class="row">
-                  <div class="col-md-5 ml-auto mr-auto">
-                    <div class="card card-background card-background-product card-raised" style="background-image: url('assets/img/bg25.jpg')">
-                      <div class="card-body">
-                        <h2 class="card-title">Interior Redesign</h2>
-                        <p class="card-description">
-                          Insight to help you create, connect, and convert. Understand Your Audience's Interests, Influence, Interactions, and Intent. Discover emerging topics and influencers to reach new audiences.
-                        </p>
-                        <label class="badge badge-neutral">Interior</label>
-                      </div>
+                  <h2 class="col-12 title text-primary">Edit User Information</h2>
+                  <form class="col-12" name="form" [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+                    <div class="text-center"><app-image-upload [isRound]="true"></app-image-upload></div>
+                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.firstName.errors }">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" name="firstName" formControlName="firstName" id="firstName"
+                             required/>
+                      <small *ngIf="submitted && f.firstName.errors" class="text-danger">First Name is required</small>
                     </div>
-                  </div>
-                  <div class="col-md-5 ml-auto mr-auto">
-                    <div class="info info-horizontal">
-                      <div class="icon icon-info">
-                        <i class="now-ui-icons design_palette"></i>
-                      </div>
-                      <div class="description">
-                        <h5 class="info-title">Colors adjustments</h5>
-                        <p class="description">
-                          Gain access to the demographics, psychographics, and location of unique people who talk about your brand.
-                        </p>
-                      </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.lastName.errors }">
+                      <label for="lastName">Last Name</label>
+                      <input type="text" class="form-control" name="lastName" formControlName="lastName" id="lastName"
+                             required/>
+                      <small *ngIf="submitted && f.lastName.errors" class="text-danger">Last Name is required</small>
                     </div>
-                    <div class="info info-horizontal">
-                      <div class="icon icon-info">
-                        <i class="now-ui-icons design_scissors"></i>
-                      </div>
-                      <div class="description">
-                        <h5 class="info-title">Performance Clothing</h5>
-                        <p class="description">
-                          Unify data from Facebook, Instagram, Twitter, LinkedIn, and Youtube to gain rich insights from easy-to-use reports.
-                        </p>
-                      </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.password.errors }">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" name="password" formControlName="password" id="password"
+                             required/>
+                      <small *ngIf="submitted && f.password.errors" class="text-danger">Password is required</small>
                     </div>
-                  </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.confirmPassword.errors }">
+                      <label for="confirmPassword">Re-type Password</label>
+                      <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword"
+                             id="confirmPassword"
+                             required/>
+                      <small *ngIf="submitted && f.confirmPassword.errors" class="text-danger">confirmPassword is required</small>
+                    </div>
+                    <div *ngIf="submitted && error" class="form-group" [ngClass]="{ 'has-error': submitted && error }">
+                      <h6 class="text-danger">{{error}}</h6>
+                    </div>
+                    <div *ngIf="updateUserForm.controls.confirmPassword.errors?.MatchPassword" class="form-group has-error">
+                      <h6 class="text-danger">Passwords do not match</h6>
+                    </div>
+                    <div class="form-group">
+                      <button [disabled]="loading" class="button is-grey-lighter has-background-gray" type="submit"><span *ngIf="!loading">Update</span>
+                        <img *ngIf="loading"
+                            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </ng-template>
             </ngb-tab>
