@@ -1,0 +1,113 @@
+<h4 class="title text-center">My Portfolio</h4>
+<ngb-tabset [justify]="'center'" type="pills"
+            class="nav nav-pills nav-pills-primary  nav-pills-just-icons justify-content-center tab-space">
+    <ngb-tab>
+        <ng-template ngbTabTitle>
+            <i class="now-ui-icons design-2_ruler-pencil"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="row">
+                <h2 class="col-12 title text-primary">Edit User Information</h2>
+                <form class="col-12" name="updateUserForm" [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+                    <div class="form-group" [ngClass]="{ 'has-error': userSubmitted && fUser.firstName.errors }">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" name="firstName" formControlName="firstName"
+                               id="firstName"
+                               required/>
+                        <small *ngIf="userSubmitted && fUser.firstName.errors" class="text-danger">First Name is
+                            required</small>
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': userSubmitted && fUser.lastName.errors }">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" formControlName="lastName" id="lastName"
+                               required/>
+                        <small *ngIf="userSubmitted && fUser.lastName.errors" class="text-danger">Last Name is
+                            required</small>
+                    </div>
+                    <div *ngIf="userSubmitted && userError" class="form-group"
+                         [ngClass]="{ 'has-error': userSubmitted && userError }">
+                        <h6 class="text-danger">{{userError}}</h6>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="button is-grey-lighter has-background-gray" type="submit">
+                            <span *ngIf="!loading">Update</span>
+                            <img *ngIf="loading"
+                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+        <ng-template ngbTabTitle>
+            <i class="now-ui-icons design_image"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="row">
+                <h2 class="col-12 title text-primary">Edit User Password</h2>
+                <form class="col-12" name="updatePasswordForm" [formGroup]="updatePasswordForm" (ngSubmit)="updatePassword()">
+                    <div class="form-group" [ngClass]="{ 'has-error': passSubmitted && fPassword.password.errors }">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" formControlName="password"
+                               id="password"
+                               required/>
+                        <small *ngIf="passSubmitted && fPassword.password.errors" class="text-danger">Password is
+                            required</small>
+                    </div>
+                    <div class="form-group"
+                         [ngClass]="{ 'has-error': passSubmitted && fPassword.confirmPassword.errors }">
+                        <label for="confirmPassword">Re-type Password</label>
+                        <input type="password" class="form-control" name="confirmPassword"
+                               formControlName="confirmPassword"
+                               id="confirmPassword"
+                               required/>
+                        <small *ngIf="passSubmitted && fPassword.confirmPassword.errors" class="text-danger">confirmPassword
+                            is required</small>
+                    </div>
+                    <div *ngIf="passSubmitted && passError" class="form-group"
+                         [ngClass]="{ 'has-error': passSubmitted && passError }">
+                        <h6 class="text-danger">{{passError}}</h6>
+                    </div>
+                    <div *ngIf="updatePasswordForm.controls.confirmPassword.errors?.MatchPassword"
+                         class="form-group has-error">
+                        <h6 class="text-danger">Passwords do not match</h6>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="button is-grey-lighter has-background-gray" type="submit">
+                            <span *ngIf="!loading">Update</span>
+                            <img *ngIf="loading"
+                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+        <ng-template ngbTabTitle>
+            <i class="now-ui-icons location_world"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="row">
+                <h2 class="col-12 title text-primary">Edit User Image</h2>
+                <form class="col-12" name="updateImgForm" [formGroup]="updateImgForm" (ngSubmit)="updateImg()" enctype="multipart/form-data">
+                    <div class="text-center">
+                        <app-image-upload [isRound]="true" [formGroup]="updateImgForm"></app-image-upload>
+                    </div>
+                    <div *ngIf="imgSubmitted && imgError" class="form-group"
+                         [ngClass]="{ 'has-error': imgSubmitted && imgError }">
+                        <h6 class="text-danger">{{imgError}}</h6>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="button is-grey-lighter has-background-gray" type="submit">
+                            <span *ngIf="!loading">Update</span>
+                            <img *ngIf="loading"
+                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>

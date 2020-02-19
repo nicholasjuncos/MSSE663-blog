@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
+import {ControlContainer, Form, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-image-upload',
@@ -6,11 +7,12 @@ import {Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit} from '@a
   styleUrls: ['./image-upload.component.scss']
 })
 export class ImageUploadComponent implements OnInit, AfterViewInit {
-    @Input() isRound: boolean = false;
+    @Input() isRound = false;
     @Input() image: string;
-    state: any = {}
+    public formGroup: FormGroup;
+    state: any = {};
     @ViewChild('input') input: ElementRef;
-    constructor() {
+    constructor(private controlContainer: ControlContainer) {
         this.handleImageChange = this.handleImageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -21,10 +23,11 @@ export class ImageUploadComponent implements OnInit, AfterViewInit {
         this.state = {
             file: null,
             imagePreviewUrl: this.image !== undefined ? this.image : (this.isRound ? '../../../assets/img/placeholder.jpg' : '../../../assets/img/image_placeholder.jpg')
-        }
+        };
+        this.formGroup = <FormGroup>this.controlContainer.control;
     }
     ngAfterViewInit() {
-        this.input.nativeElement.children[2].onchange = this.handleImageChange;;
+        this.input.nativeElement.children[2].onchange = this.handleImageChange;
     }
     handleImageChange(e) {
         e.preventDefault();
@@ -39,9 +42,13 @@ export class ImageUploadComponent implements OnInit, AfterViewInit {
     }
     handleSubmit(e) {
         e.preventDefault();
-        // this.state.file is the file/image uploaded
-        // in this function you can save the image (this.state.file) on form submit
-        // you have to call it yourself
+        // const myFormValue = this.fg.value;
+        // const myFormData = new FormData;
+        // for (let i = 0; i < myFormValue.length; i++ ) {
+        //     for ( const key of myFormValue ) {
+        //         myFormData.append(key, myFormValue[key]);
+        //     }
+        // }
     }
     handleClick() {
         this.input.nativeElement.children[2].click();

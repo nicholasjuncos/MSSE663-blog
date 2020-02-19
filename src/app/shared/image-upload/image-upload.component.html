@@ -1,4 +1,4 @@
-<div class="fileinput text-center" #input>
+<div [formGroup]="formGroup" class="fileinput text-center" #input>
     <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-raised">
         <img src={{state.imagePreviewUrl}} alt="..." />
     </div>

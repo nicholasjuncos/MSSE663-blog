@@ -20,147 +20,19 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="title text-center">My Portfolio</h4>
-          <ngb-tabset [justify]="'center'" type="pills" class="nav nav-pills nav-pills-primary  nav-pills-just-icons justify-content-center tab-space">
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="now-ui-icons design_image"></i>
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="row">
-                  <div class="col-md-5 ml-auto mr-auto">
-                    <div class="card card-background card-background-product card-raised" style="background-image: url('../../../assets/img/bg23.jpg')">
-                      <div class="card-body">
-                        <h2 class="card-title">Chair remake.</h2>
-                        <p class="card-description text-white">
-                          Trello’s boards, lists, and cards enable you to organize and prioritize your projects in a fun, flexible and rewarding way. It was a great project and I would be more than happy to do it again.
-                        </p>
-                        <label class="badge badge-neutral">Trello</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-5 ml-auto mr-auto">
-                    <div class="info info-horizontal">
-                      <div class="icon icon-warning">
-                        <i class="now-ui-icons users_single-02"></i>
-                      </div>
-                      <div class="description">
-                        <h5 class="info-title">Work With Any Team</h5>
-                        <p class="description">
-                          Whether it’s for work or even the next family vacation, Trello helps your team.
-                        </p>
-                      </div>
-                    </div>
-                    <div class="info info-horizontal">
-                      <div class="icon icon-warning">
-                        <i class="now-ui-icons business_chart-bar-32"></i>
-                      </div>
-                      <div class="description">
-                        <h5 class="info-title">A Productivity Platform</h5>
-                        <p class="description">
-                          Integrate the apps your team already uses directly into your workflow.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="now-ui-icons location_world"></i>
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="row">
-                  <div class="col-md-5 ml-auto mr-auto">
-                    <div class="card card-background card-background-product card-raised" style="background-image: url('assets/img/project8.jpg')">
-                      <div class="card-body">
-                        <h2 class="card-title">Social Analytics</h2>
-                        <p class="card-description">
-                          Insight to help you create, connect, and convert. Understand Your Audience's Interests, Influence, Interactions, and Intent. Discover emerging topics and influencers to reach new audiences.
-                        </p>
-                        <label class="badge badge-neutral">Analytics</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-5 ml-auto mr-auto">
-                    <div class="info info-horizontal">
-                      <div class="icon icon-danger">
-                        <i class="now-ui-icons ui-2_chat-round"></i>
-                      </div>
-                      <div class="description">
-                        <h5 class="info-title">Listen to Social Conversations</h5>
-                        <p class="description">
-                          Gain access to the demographics, psychographics, and location of unique people who talk about your brand.
-                        </p>
-                      </div>
-                    </div>
-                    <div class="info info-horizontal">
-                      <div class="icon icon-danger">
-                        <i class="now-ui-icons design-2_ruler-pencil"></i>
-                      </div>
-                      <div class="description">
-                        <h5 class="info-title">Social Conversions</h5>
-                        <p class="description">
-                          Track actions taken on your website that originated from social, and understand the impact on your bottom line.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab>
-              <ng-template ngbTabTitle>
-                <i class="now-ui-icons design-2_ruler-pencil"></i>
-              </ng-template>
-              <ng-template ngbTabContent>
-                <div class="row">
-                  <h2 class="col-12 title text-primary">Edit User Information</h2>
-                  <form class="col-12" name="form" [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
-                    <div class="text-center"><app-image-upload [isRound]="true"></app-image-upload></div>
-                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.firstName.errors }">
-                      <label for="firstName">First Name</label>
-                      <input type="text" class="form-control" name="firstName" formControlName="firstName" id="firstName"
-                             required/>
-                      <small *ngIf="submitted && f.firstName.errors" class="text-danger">First Name is required</small>
-                    </div>
-                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.lastName.errors }">
-                      <label for="lastName">Last Name</label>
-                      <input type="text" class="form-control" name="lastName" formControlName="lastName" id="lastName"
-                             required/>
-                      <small *ngIf="submitted && f.lastName.errors" class="text-danger">Last Name is required</small>
-                    </div>
-                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.password.errors }">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" name="password" formControlName="password" id="password"
-                             required/>
-                      <small *ngIf="submitted && f.password.errors" class="text-danger">Password is required</small>
-                    </div>
-                    <div class="form-group" [ngClass]="{ 'has-error': submitted && f.confirmPassword.errors }">
-                      <label for="confirmPassword">Re-type Password</label>
-                      <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword"
-                             id="confirmPassword"
-                             required/>
-                      <small *ngIf="submitted && f.confirmPassword.errors" class="text-danger">confirmPassword is required</small>
-                    </div>
-                    <div *ngIf="submitted && error" class="form-group" [ngClass]="{ 'has-error': submitted && error }">
-                      <h6 class="text-danger">{{error}}</h6>
-                    </div>
-                    <div *ngIf="updateUserForm.controls.confirmPassword.errors?.MatchPassword" class="form-group has-error">
-                      <h6 class="text-danger">Passwords do not match</h6>
-                    </div>
-                    <div class="form-group">
-                      <button [disabled]="loading" class="button is-grey-lighter has-background-gray" type="submit"><span *ngIf="!loading">Update</span>
-                        <img *ngIf="loading"
-                            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
+          <app-edit-user
+                  (sendUserForm)="updateUser($event)"
+                  (sendPasswordForm)="updatePassword($event)"
+                  (sendImgForm)="updateImg($event)"
+                  [loading]='loading'
+                  [userSubmitted]='userSubmitted'
+                  [userError]='userError'
+                  [passSubmitted]='passSubmitted'
+                  [passError]='passError'
+                  [imgSubmitted]='imgSubmitted'
+                  [imgError]='imgError'
+          ></app-edit-user>
+
         </div>
       </div>
     </div>

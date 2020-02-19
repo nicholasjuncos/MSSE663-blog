@@ -15,7 +15,6 @@ import {environment} from '../../environments/environment';
 export class AuthService {
     API_URL: string = environment.apiUrl;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
-    // currentUser = {};
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
@@ -35,9 +34,8 @@ export class AuthService {
                     if (res.user && res.token) {
                         localStorage.setItem('access_token', res.token);
                         localStorage.setItem('currentUser', JSON.stringify(res.user));
-                        this.getUserProfile(res.user._id).subscribe((result) => {
-                            this.currentUser = res.user;
-                        });
+                        this.currentUser = res.user;
+                        this.currentUserSubject.next(res.user);
                     }
                     return user;
                 }),
@@ -48,15 +46,13 @@ export class AuthService {
     login(username: string, password: string) {
         return this.httpClient.post<any>(`${environment.apiUrl}/users/login`, {username, password})
             .pipe(map(res => {
-                    // login successful if there's a jwt token in the response
                     const user = res.user;
                     if (res.user && res.token) {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('access_token', res.token);
                         localStorage.setItem('currentUser', JSON.stringify(res.user));
-                        this.getUserProfile(res.user._id).subscribe((res) => {
-                            this.currentUser = res.user;
-                        });
+                        this.currentUser = res.user;
+                        this.currentUserSubject.next(res.user);
                     }
                     return user;
                 }),
@@ -77,6 +73,7 @@ export class AuthService {
         return this.httpClient.post<any>(`${this.API_URL}/users/logout`, {}).pipe(catchError(this.handleError))
             .subscribe((res: any) => {
                 if (localStorage.removeItem('access_token') == null && localStorage.removeItem('currentUser') == null) {
+                    this.currentUser = null;
                     window.alert('Successfully Logged out!');
                     this.router.navigate(['/login']);
                 }
@@ -87,6 +84,7 @@ export class AuthService {
         return this.httpClient.post<any>(`${this.API_URL}/users/logoutAll`, {}).pipe(catchError(this.handleError))
             .subscribe((res: any) => {
                 if (localStorage.removeItem('access_token') == null && localStorage.removeItem('currentUser') == null) {
+                    this.currentUser = null;
                     window.alert('Successfully Logged out of all devices!');
                     this.router.navigate(['/login']);
                 }
@@ -102,13 +100,35 @@ export class AuthService {
         );
     }
 
-    update(firstName: string, lastName: string, password: string, img: string) {
-        if (img === '') {
-            const data = {firstName, lastName, password}
-        } else {
-            const data = {firstName, lastName, password, img}
-        }
-        return this.httpClient.put<any>(`${this.API_URL}/users/update`, {firstName, lastName, password, img}).pipe(
+    updateUser(firstName: string, lastName: string) {
+        return this.httpClient.put<any>(`${this.API_URL}/users/update`, {firstName, lastName}).pipe(
+            map((res: any) => {
+                this.getUserProfile(res._id).subscribe((result) => {
+                    this.currentUser = result;
+                    localStorage.setItem('currentUser', JSON.stringify(result));
+                    return result;
+                });
+            }),
+            catchError(this.handleError));
+    }
+
+    updatePassword(password: string) {
+        return this.httpClient.put<any>(`${this.API_URL}/users/update`, {password}).pipe(
+            map((res: any) => {
+                this.getUserProfile(res._id).subscribe((result) => {
+                    this.currentUser = result;
+                    localStorage.setItem('currentUser', JSON.stringify(result));
+                    return result;
+                });
+            }),
+            catchError(this.handleError));
+    }
+
+    updateImg(img: File) {
+        const formData = new FormData();
+        formData.append('img', img, img.name);
+        const data = {img};
+        return this.httpClient.put<any>(`${this.API_URL}/users/update`, formData).pipe(
             map((res: any) => {
                 this.getUserProfile(res._id).subscribe((result) => {
                     this.currentUser = result;

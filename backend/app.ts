@@ -69,7 +69,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // for parsing multipart/form-data
-app.use(upload.single('userPhoto', 'img'));
+app.use(upload.single('img'));
 app.use(express.static('public'));
 
 app.use('/users', userRoutes);

@@ -33,6 +33,7 @@ export const registerUser = async (req: any, res: any) => {
             lastName: req.body.lastName,
             username: req.body.username,
             password: req.body.password,
+            img: null,
             isAuthor: false
         };
         if (data.password.length < 6) {
@@ -47,7 +48,6 @@ export const registerUser = async (req: any, res: any) => {
         if (error['code'] === 11000) {
             res.status(400).send('AUTH_USERNAME')
         } else {
-            console.log(error.errorMsg);
             res.status(400).send('OTHER_ERROR');
         }
     }
