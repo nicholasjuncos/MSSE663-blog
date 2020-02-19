@@ -7,7 +7,7 @@ export interface UserModel {
   username: string;
   password: string;
   isAuthor: boolean;
-  img: string;
+  img: {imageURL: string, data: Buffer, contentType: String};
   tokens: [];
 }
 
