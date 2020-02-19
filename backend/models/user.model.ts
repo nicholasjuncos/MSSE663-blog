@@ -33,6 +33,7 @@ export const UserSchema = new Schema<UserModel>({
     type: Boolean
   },
   img: {
+    imageURL: String,
     data: Buffer,
     contentType: String
   },

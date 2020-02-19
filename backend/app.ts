@@ -71,6 +71,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // for parsing multipart/form-data
 app.use(upload.single('img'));
 app.use(express.static('public'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.use('/users', userRoutes);
 

@@ -6,6 +6,8 @@ import * as Rellax from 'rellax';
 
 import {PasswordValidation} from '../../shared/validators';
 import {AuthService} from '../auth.service';
+import {environment} from '../../../environments/environment';
+import {UserModel} from '../../../../backend/models/user.model';
 
 
 @Component({
@@ -14,6 +16,7 @@ import {AuthService} from '../auth.service';
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+    API_URL: string = environment.apiUrl;
     loading = false;
     returnUrl: string;
     userSubmitted = false;
@@ -23,16 +26,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     imgSubmitted = false;
     imgError: string;
     data: Date = new Date();
+    state: any = {};
     focus;
     focus1;
+    currentUser: UserModel;
 
     constructor(
-        public formBuilder: FormBuilder,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private authService: AuthService,
         // private alertService: AlertService
     ) {
+        this.currentUser = this.authService.currentUserValue;
+        this.state = {
+            userProfileImage: this.API_URL + '/' + this.currentUser.img.imageURL
+        }
     }
 
     ngOnInit() {

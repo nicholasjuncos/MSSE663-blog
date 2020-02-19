@@ -116,6 +116,7 @@ export const updateUser = async (req: any, res: any) => {
     }
     if (req.file) {
         newData['img'] = {
+            imageURL: req.file.path,
             data: fs.readFileSync(req.file.path),
             contentType: req.file.mimetype
         }
@@ -126,6 +127,7 @@ export const updateUser = async (req: any, res: any) => {
             if (error) {
                 res.status(500).send('UPDATE_FAIL');
             } else {
+                data.img = data.img.toString('base64');
                 res.send(data);
             }
         }
