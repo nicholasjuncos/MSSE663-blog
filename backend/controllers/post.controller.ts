@@ -1,30 +1,5 @@
-import {User} from '../models/user.model';
 import {Post} from '../models/post.model';
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
-import {databaseSecret} from '../environment';
-
-const generateAuthToken = async (user) => {
-    const token = jwt.sign({_id: user._id}, databaseSecret);
-    user.tokens = user.tokens.concat({token});
-    await user.save();
-    return token;
-};
-
-const findByCredentials = async (username: string, password: string) => {
-    // Search for a user by username and password.
-    const user = await User.findOne({username});
-    if (!user) {
-        throw new Error('AUTH_FAIL');
-    }
-    // @ts-ignore
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) {
-        throw new Error('AUTH_FAIL');
-    }
-    return user;
-};
 
 export const createPost = async (req: any, res: any) => {
     try {

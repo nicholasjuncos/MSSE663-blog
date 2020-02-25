@@ -25,17 +25,6 @@ const findByCredentials = async (username: string, password: string) => {
     return user;
 };
 
-// THIS IS USED FOR POSTS
-export const getUserById = (id: string, callback: any) => {
-    User.findById(id, callback);
-};
-
-// THIS IS USED FOR POSTS
-export const getUserByUsername = (username: string, callback: any) => {
-    const query = {username};
-    User.findOne(query, callback);
-};
-
 export const registerUser = async (req: any, res: any) => {
     try {
         // Req.body should have username and password. isAuthor also doubles as staff for this application
