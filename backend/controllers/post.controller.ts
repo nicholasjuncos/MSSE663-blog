@@ -94,6 +94,79 @@ export const readPost = async (req: any, res: any) => {
     }
 };
 
+export const updatePost = async (req: any, res: any) => {
+    const newData = {};
+    if (req.body.published) {
+        newData['published'] = req.body.published;
+    }
+    if (req.body.postDate) {
+        newData['postDate'] = req.body.postDate;
+    }
+    if (req.body.title) {
+        newData['title'] = req.body.title;
+    }
+    if (req.body.title2) {
+        newData['title2'] = req.body.title2;
+    }
+    if (req.body.subtitle1) {
+        newData['subtitle1'] = req.body.subtitle1;
+    }
+    if (req.body.description1) {
+        newData['description1'] = req.body.description1;
+    }
+    if (req.body.subtitle2) {
+        newData['subtitle2'] = req.body.subtitle2;
+    }
+    if (req.body.description2) {
+        newData['description2'] = req.body.description2;
+    }
+    if (req.body.quote) {
+        newData['quote'] = req.body.quote;
+    }
+    if (req.body.quote) {
+        newData['quoter'] = req.body.quoter;
+    }
+    if (req.body.tags) {
+        newData['tags'] = req.body.tags;
+    }
+    if (req.files) {
+        newData['coverImg'] = {
+            imageURL: req.files.coverImg[0].path,
+            data: fs.readFileSync(req.files.coverImg[0].path),
+            contentType: req.files.coverImg[0].mimetype
+        };
+        newData['img1'] = {
+            imageURL: req.files.img1[0].path,
+            data: fs.readFileSync(req.files.img1[0].path),
+            contentType: req.files.img1[0].mimetype
+        };
+        newData['img2'] = {
+            imageURL: req.files.img2[0].path,
+            data: fs.readFileSync(req.files.img2[0].path),
+            contentType: req.files.img2[0].mimetype
+        };
+        newData['img3'] = {
+            imageURL: req.files.img3[0].path,
+            data: fs.readFileSync(req.files.img3[0].path),
+            contentType: req.files.img3[0].mimetype
+        };
+    }
+    Post.findByIdAndUpdate(req.params.id, {
+            $set: newData
+        }, (error: any, data: any) => {
+            if (error) {
+                res.status(500).send('UPDATE_FAIL');
+            } else {
+                data.coverImg = data.coverImg.toString('base64');
+                data.img1 = data.img1.toString('base64');
+                data.img2 = data.img2.toString('base64');
+                data.img3 = data.img3.toString('base64');
+                res.send(data);
+            }
+        }
+    );
+};
+
 export const deletePost = async (req: any, res: any) => {
     // Logout from ONE device. Just current device.
     try {
@@ -145,43 +218,4 @@ export const listUserPosts = async (req: any, res: any) => {
     } catch (error) {
         res.status(400).send('AUTH_FAIL');
     }
-};
-
-export const updatePost = async (req: any, res: any) => {
-    const newData = {};
-    if (req.body.password) {
-        newData['password'] = req.body.password;
-        if (newData['password'].length < 6) {
-            return res.status(400).send('AUTH_PASS_LENGTH')
-        } else {
-            newData['password'] = await bcrypt.hash(newData['password'], 8);
-        }
-    }
-    if (req.body.firstName) {
-        newData['firstName'] = req.body.firstName;
-    }
-    if (req.body.lastName) {
-        newData['lastName'] = req.body.lastName;
-    }
-    if (req.body.isAuthor) {
-        newData['isAuthor'] = req.body.isAuthor;
-    }
-    if (req.files) {
-        newData['img'] = {
-            imageURL: req.files.img.path,
-            data: fs.readFileSync(req.files.img[0].path),
-            contentType: req.files.img.mimetype
-        }
-    }
-    Post.findByIdAndUpdate(req.body._id, {
-            $set: newData
-        }, (error: any, data: any) => {
-            if (error) {
-                res.status(500).send('UPDATE_FAIL');
-            } else {
-                data.img = data.img.toString('base64');
-                res.send(data);
-            }
-        }
-    );
 };
