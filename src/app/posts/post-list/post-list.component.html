@@ -1,3 +1,5 @@
-<p>
-  post-list works!
-</p>
+<div class="row">
+  <div *ngFor="let post of posts" class="col-md-4">
+    <app-post-card [post]="post"></app-post-card>
+  </div>
+</div>

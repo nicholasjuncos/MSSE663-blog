@@ -11,6 +11,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ImageUploadModule} from '../shared/image-upload/image-upload.module';
 import { EditUserComponent } from './profile/edit-user/edit-user.component';
 import { DetailsUserComponent } from './profile/details-user/details-user.component';
+import {PostsModule} from '../posts/posts.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ProfileComponent, EditUserComponent, DetailsUserComponent],
@@ -20,7 +21,8 @@ import { DetailsUserComponent } from './profile/details-user/details-user.compon
         ReactiveFormsModule,
         RouterModule,
         UserRoutingModule,
-        ImageUploadModule
+        ImageUploadModule,
+        PostsModule
     ],
     exports: [
         LoginComponent
