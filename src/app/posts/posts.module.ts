@@ -6,9 +6,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {ImageUploadModule} from '../shared/image-upload/image-upload.module';
+import { PostCardComponent } from './post-card/post-card.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { PostListComponent } from './post-list/post-list.component';
 
 @NgModule({
-  declarations: [PostsComponent],
+  declarations: [PostsComponent, PostCardComponent, PostDetailComponent, PostListComponent],
   imports: [
     CommonModule,
     NgbModule,
@@ -17,8 +20,9 @@ import {ImageUploadModule} from '../shared/image-upload/image-upload.module';
     PostsRoutingModule,
     ImageUploadModule
   ],
-  // exports: [
-  //   PostsComponent
-  // ]
+  exports: [
+    PostCardComponent,
+    PostListComponent
+  ]
 })
 export class PostsModule { }
