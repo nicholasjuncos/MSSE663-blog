@@ -15,7 +15,7 @@ postRoutes.get('/:id', readPost);
 postRoutes.put('/:id/update', postAuth, updatePost);
 
 // Delete Post
-// postRoutes.post('/:id/delete', postAuth, deletePost);
+postRoutes.post('/:id/delete', postAuth, deletePost);
 
 // List All Published Posts
 // postRoutes.post('/list', listPosts);

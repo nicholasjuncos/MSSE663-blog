@@ -73,7 +73,6 @@ export const createPost = async (req: any, res: any) => {
         console.log(error);
         if (error['code'] === 11000) {
             res.status(400).send('OTHER_ERROR');
-            // res.status(400).send('AUTH_USERNAME')
         } else {
             res.status(400).send('OTHER_ERROR');
         }
@@ -82,15 +81,18 @@ export const createPost = async (req: any, res: any) => {
 
 export const readPost = async (req: any, res: any) => {
     try {
-        Post.findById(String(req.params.id), (err: any, result: any) => {
+        const post = await Post.findById(String(req.params.id), (err: any, result: any) => {
             if (err) {
                 res.status(500).send('READ_POST_FAIL');
-            } else {
-                res.status(200).send(result);
             }
         });
+        if (!post) {
+            throw new Error();
+        } else {
+            res.status(200).send(post);
+        }
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send('POST_DNE');
     }
 };
 
@@ -168,15 +170,12 @@ export const updatePost = async (req: any, res: any) => {
 };
 
 export const deletePost = async (req: any, res: any) => {
-    // Logout from ONE device. Just current device.
+    // Delete post
     try {
-        req.user.tokens = req.user.tokens.filter((token: any) => {
-            return token.token !== req.token;
-        });
-        await req.user.save();
+        await Post.findByIdAndDelete(req.params.id);
         res.send({success: true});
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send('DELETE_ERROR');
     }
 };
 

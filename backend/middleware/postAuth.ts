@@ -17,16 +17,23 @@ export const postAuth = async (req: any, res: any, next: any) => {
             req.user = user;
             req.token = token;
             try {
-                const post = await Post.findOne({_id: req.params.id, author: user.id});
+                const post = await Post.findOne({_id: req.params.id});
                 if (!post) {
                     throw new Error();
                 }
-                req.post = post;
-                next();
+                try {
+                    const post2 = await Post.findOne({_id: req.params.id, author: user.id});
+                    if (!post2) {
+                        throw new Error();
+                    }
+                    req.post = post2;
+                    next();
+                } catch (error) {
+                    res.status(401).send('UNAUTHORIZED_ERROR');
+                }
             } catch (error) {
-                res.status(401).send('UNAUTHORIZED_ERROR');
+                res.status(401).send('POST_DNE');
             }
-            // next();
         } catch (error) {
             res.status(401).send({error: 'Not authorized to access these resources.'});
         }
