@@ -9,9 +9,10 @@ import {ImageUploadModule} from '../shared/image-upload/image-upload.module';
 import { PostCardComponent } from './post-card/post-card.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostListComponent } from './post-list/post-list.component';
+import { PostFormComponent } from './post-form/post-form.component';
 
 @NgModule({
-  declarations: [PostsComponent, PostCardComponent, PostDetailComponent, PostListComponent],
+  declarations: [PostsComponent, PostCardComponent, PostDetailComponent, PostListComponent, PostFormComponent],
   imports: [
     CommonModule,
     NgbModule,
