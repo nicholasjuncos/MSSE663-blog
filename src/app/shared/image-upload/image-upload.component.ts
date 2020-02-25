@@ -9,6 +9,7 @@ import {ControlContainer, Form, FormGroup} from '@angular/forms';
 export class ImageUploadComponent implements OnInit, AfterViewInit {
     @Input() isRound = false;
     @Input() image: string;
+    @Input() formControlName: string;
     public formGroup: FormGroup;
     state: any = {};
     @ViewChild('input') input: ElementRef;

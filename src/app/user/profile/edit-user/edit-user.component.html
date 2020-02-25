@@ -93,7 +93,7 @@
                 <h2 class="col-12 title text-primary">Edit User Image</h2>
                 <form class="col-12" name="updateImgForm" [formGroup]="updateImgForm" (ngSubmit)="updateImg()" enctype="multipart/form-data">
                     <div class="text-center">
-                        <app-image-upload [isRound]="true" [formGroup]="updateImgForm"></app-image-upload>
+                        <app-image-upload [isRound]="true" [formGroup]="updateImgForm" [formControlName]="'img'"></app-image-upload>
                     </div>
                     <div *ngIf="imgSubmitted && imgError" class="form-group"
                          [ngClass]="{ 'has-error': imgSubmitted && imgError }">

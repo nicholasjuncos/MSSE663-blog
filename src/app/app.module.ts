@@ -11,7 +11,7 @@ import { ComponentsModule } from './components/components.module';
 import { ExamplesModule } from './examples/examples.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
-import { PresentationComponent } from './presentation/presentation.component';
+import { PostsModule } from './posts/posts.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthInterceptor } from './user/auth.interceptor';
 
@@ -30,6 +30,7 @@ import { PresentationModule } from './presentation/presentation.module';
         RouterModule,
         AppRoutingModule,
         UserModule,
+        PostsModule,
         PresentationModule,
         SectionsModule,
         ComponentsModule,
