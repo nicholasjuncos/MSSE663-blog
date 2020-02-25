@@ -8,6 +8,15 @@ export const postRoutes = express.Router();
 // Create Post
 postRoutes.post('/create', auth, createPost);
 
+// List All PUBLISHED Posts
+postRoutes.get('/list', listPosts);
+
+// List My Posts
+postRoutes.get('/list/me', auth, listMyPosts);
+
+// List User Published Posts
+postRoutes.get('/list/:id', listUserPosts);
+
 // Read Post
 postRoutes.get('/:id', readPost);
 
@@ -17,11 +26,4 @@ postRoutes.put('/:id/update', postAuth, updatePost);
 // Delete Post
 postRoutes.post('/:id/delete', postAuth, deletePost);
 
-// List All Published Posts
-// postRoutes.post('/list', listPosts);
 
-// List My Posts
-// postRoutes.post('/list/me', postAuth, listMyPosts);
-
-// List User Published Posts
-// postRoutes.post('/list/:id', listUserPosts);

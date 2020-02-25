@@ -180,41 +180,32 @@ export const deletePost = async (req: any, res: any) => {
 };
 
 export const listPosts = async (req: any, res: any) => {
+    const currentDate = Date();
     try {
-        req.user.tokens.splice(0, req.user.tokens.length);
-        await req.user.save();
-        res.send({success: true});
+        const posts = await Post.find({published: 'true', postDate: {$lte: currentDate}});
+        res.send(posts);
     } catch (error) {
         res.status(500).send(error);
     }
 };
 
 export const listMyPosts = async (req: any, res: any) => {
-    // Login a registered user
     try {
-        const {username, password} = req.body;
-        const user = await findByCredentials(username, password);
-        if (!user) {
-            return res.status(400).send('AUTH_FAIL');
-        }
-        const token = await generateAuthToken(user);
-        res.send({user, token});
+        const posts = await Post.find({author: req.user.id});
+        const post_length = posts.length;
+        res.send({posts, post_length});
     } catch (error) {
-        res.status(400).send('AUTH_FAIL');
+        res.status(500).send(error);
     }
 };
 
 export const listUserPosts = async (req: any, res: any) => {
-    // Login a registered user
+    const currentDate = Date();
     try {
-        const {username, password} = req.body;
-        const user = await findByCredentials(username, password);
-        if (!user) {
-            return res.status(400).send('AUTH_FAIL');
-        }
-        const token = await generateAuthToken(user);
-        res.send({user, token});
+        const posts = await Post.find({author: req.params.id, published: 'true', postDate: {$lte: currentDate}});
+        const post_length = posts.length;
+        res.send({posts, post_length});
     } catch (error) {
-        res.status(400).send('AUTH_FAIL');
+        res.status(500).send(error);
     }
 };
