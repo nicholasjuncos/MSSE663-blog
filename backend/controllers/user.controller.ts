@@ -125,11 +125,11 @@ export const updateUser = async (req: any, res: any) => {
     if (req.body.isAuthor) {
         newData['isAuthor'] = req.body.isAuthor;
     }
-    if (req.file) {
+    if (req.files) {
         newData['img'] = {
-            imageURL: req.file.path,
-            data: fs.readFileSync(req.file.path),
-            contentType: req.file.mimetype
+            imageURL: req.files.img[0].path,
+            data: fs.readFileSync(req.files.img[0].path),
+            contentType: req.files.img[0].mimetype
         }
     }
     User.findByIdAndUpdate(req.user._id, {

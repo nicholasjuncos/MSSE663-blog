@@ -17,6 +17,7 @@ import {UserModel} from '../../../../backend/models/user.model';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
     API_URL: string = environment.apiUrl;
+    BACKEND_URL: string = environment.backendUrl;
     loading = false;
     returnUrl: string;
     userSubmitted = false;
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     ) {
         this.currentUser = this.authService.currentUserValue;
         this.state = {
-            userProfileImage: this.currentUser.img ? this.API_URL + '/' + this.currentUser.img.imageURL : null
+            userProfileImage: this.currentUser.img ? this.BACKEND_URL + '/' + this.currentUser.img.imageURL : null
         }
     }
 

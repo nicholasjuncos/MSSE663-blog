@@ -18,10 +18,10 @@ import {postRoutes} from './routes/post.routes';
 const app = express();
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, './uploads/');
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, new Date().toISOString() + file.originalname)
     }
 });
@@ -67,10 +67,25 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // for parsing application/xwww-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // for parsing multipart/form-data
-app.use(upload.single('img'));
+// app.use(upload.single('img'));
+app.use(upload.fields([{
+    name: 'img', maxCount: 1
+}, {
+    name: 'coverImg', maxCount: 1
+}, {
+    name: 'img1', maxCount: 1
+}, {
+    name: 'img2', maxCount: 1
+}, {
+    name: 'img3', maxCount: 1
+}]));
+// app.use(upload.single('coverImg'));
+// app.use(upload.single('img1'));
+// app.use(upload.single('img2'));
+// app.use(upload.single('img3'));
 app.use(express.static('public'));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 

@@ -40,8 +40,7 @@ export const PostSchema = new Schema<PostModel>({
         required: true
     },
     title2: {
-        type: String,
-        required: true
+        type: String
     },
     subtitle1: {
         type: String,

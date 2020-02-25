@@ -9,7 +9,7 @@ export const postRoutes = express.Router();
 postRoutes.post('/create', auth, createPost);
 
 // Read Post
-// postRoutes.get('/:id', readPost);
+postRoutes.get('/:id', readPost);
 
 // Update Post
 // postRoutes.put('/:id/update', postAuth, updatePost);

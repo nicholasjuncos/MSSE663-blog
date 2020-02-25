@@ -44,28 +44,30 @@ export const createPost = async (req: any, res: any) => {
             tags: req.body.tags,
             likeCount: 0
         };
-        if (req.file) {
+        if (req.files) {
             data['coverImg'] = {
-                imageURL: req.file.path,
-                data: fs.readFileSync(req.file.path),
-                contentType: req.file.mimetype
+                imageURL: req.files.coverImg[0].path,
+                data: fs.readFileSync(req.files.coverImg[0].path),
+                contentType: req.files.coverImg[0].mimetype
             };
             data['img1'] = {
-                imageURL: req.file.path,
-                data: fs.readFileSync(req.file.path),
-                contentType: req.file.mimetype
+                imageURL: req.files.img1[0].path,
+                data: fs.readFileSync(req.files.img1[0].path),
+                contentType: req.files.img1[0].mimetype
             };
             data['img2'] = {
-                imageURL: req.file.path,
-                data: fs.readFileSync(req.file.path),
-                contentType: req.file.mimetype
+                imageURL: req.files.img2[0].path,
+                data: fs.readFileSync(req.files.img2[0].path),
+                contentType: req.files.img2[0].mimetype
             };
             data['img3'] = {
-                imageURL: req.file.path,
-                data: fs.readFileSync(req.file.path),
-                contentType: req.file.mimetype
+                imageURL: req.files.img3[0].path,
+                data: fs.readFileSync(req.files.img3[0].path),
+                contentType: req.files.img3[0].mimetype
             };
         }
+        const post = await new Post(data);
+        res.status(201).send({post})
     } catch (error) {
         console.log(error);
         if (error['code'] === 11000) {
@@ -78,6 +80,7 @@ export const createPost = async (req: any, res: any) => {
 };
 
 export const readPost = async (req: any, res: any) => {
+
     res.send(req.user);
 };
 
@@ -153,11 +156,11 @@ export const updatePost = async (req: any, res: any) => {
     if (req.body.isAuthor) {
         newData['isAuthor'] = req.body.isAuthor;
     }
-    if (req.file) {
+    if (req.files) {
         newData['img'] = {
-            imageURL: req.file.path,
-            data: fs.readFileSync(req.file.path),
-            contentType: req.file.mimetype
+            imageURL: req.files.img.path,
+            data: fs.readFileSync(req.files.img[0].path),
+            contentType: req.files.img.mimetype
         }
     }
     Post.findByIdAndUpdate(req.body._id, {
