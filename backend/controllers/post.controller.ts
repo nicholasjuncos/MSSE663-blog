@@ -30,7 +30,7 @@ export const createPost = async (req: any, res: any) => {
     try {
         // Req.body should have data for post
         const data = {
-            author: req.user.id,
+            author: req.user._id,
             published: req.body.published,
             postDate: req.body.postDate,
             title: req.body.title,

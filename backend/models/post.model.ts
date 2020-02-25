@@ -1,5 +1,4 @@
 import {model, Schema} from 'mongoose';
-import {autoIncrement} from 'mongoose-plugin-autoinc';
 
 export interface PostModel {
     id: number;
@@ -95,6 +94,5 @@ export const PostSchema = new Schema<PostModel>({
         contentType: String
     }
 });
-PostSchema.plugin(autoIncrement, {model: 'Post', startAt: 1});
 
 export const Post = model('Post', PostSchema);

@@ -51,7 +51,7 @@ export const registerUser = async (req: any, res: any) => {
             res.status(400).send('AUTH_PASS_LENGTH')
         } else {
             data.password = await bcrypt.hash(data.password, 8);
-            const user = new User(data);
+            const user = await new User(data);
             const token = await generateAuthToken(user);
             res.status(201).send({user, token});
         }

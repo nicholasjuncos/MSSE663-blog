@@ -1,5 +1,4 @@
 import {model, Schema} from 'mongoose';
-import { autoIncrement } from 'mongoose-plugin-autoinc';
 
 export interface UserModel {
   id: number;
@@ -45,6 +44,5 @@ export const UserSchema = new Schema<UserModel>({
     }
   }]
 });
-UserSchema.plugin(autoIncrement, {model: 'User', startAt: 1});
 
 export const User = model('User', UserSchema);
