@@ -13,6 +13,7 @@ import multer = require('multer');
 
 import {databaseName} from './environment';
 import {userRoutes} from './routes/user.routes';
+import {postRoutes} from './routes/post.routes';
 
 const app = express();
 
@@ -73,7 +74,8 @@ app.use(upload.single('img'));
 app.use(express.static('public'));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-app.use('/users', userRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
 
 // Start Server
 app.listen(port, () => {

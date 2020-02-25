@@ -9,7 +9,7 @@ export const auth = async (req: any, res: any, next: any) => {
     const data = jwt.verify(token, databaseSecret);
     try {
       // @ts-ignore
-      const user = await User.findOne({_id: data._id, 'tokens.token': token});
+      const user = await User.findOne({id: data._id, 'tokens.token': token});
       if (!user) {
         throw new Error();
       }

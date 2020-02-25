@@ -3,8 +3,8 @@
     <div class="page-header-image rellax-header" data-rellax-speed="-8" style="background-image: url('../../../assets/img/bg5.jpg') ;"></div>
     <div class="content-center">
       <div class="photo-container">
-        <img *ngIf="this.state.userProfileImage" src="{{this.state.userProfileImage}}" alt="profile_picture"/>
-        <img *ngIf="!this.state.userProfileImage" src="../../../assets/img/ryan.jpg" alt="">
+        <img *ngIf="this.state.userProfileImage !== null" src="{{this.state.userProfileImage}}" alt="profile_picture"/>
+        <img *ngIf="this.state.userProfileImage == null" src="../../../assets/img/placeholder.jpg" alt="">
       </div>
       <h3 class="title">{{this.currentUser.firstName}} {{this.currentUser.lastName}}</h3>
       <p class="category">{{this.currentUser.username}}</p>

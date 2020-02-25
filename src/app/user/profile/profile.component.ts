@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     ) {
         this.currentUser = this.authService.currentUserValue;
         this.state = {
-            userProfileImage: this.API_URL + '/' + this.currentUser.img.imageURL
+            userProfileImage: this.currentUser.img ? this.API_URL + '/' + this.currentUser.img.imageURL : null
         }
     }
 
