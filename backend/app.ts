@@ -17,6 +17,7 @@ import {postRoutes} from './routes/post.routes';
 
 const app = express();
 
+// Setting up upload file storage
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -70,7 +71,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // for parsing multipart/form-data
-// app.use(upload.single('img'));
 app.use(upload.fields([{
     name: 'img', maxCount: 1
 }, {
@@ -82,13 +82,11 @@ app.use(upload.fields([{
 }, {
     name: 'img3', maxCount: 1
 }]));
-// app.use(upload.single('coverImg'));
-// app.use(upload.single('img1'));
-// app.use(upload.single('img2'));
-// app.use(upload.single('img3'));
+// Setting uploads path to public and adding to app
 app.use(express.static('public'));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+// Adding backend URLS
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 

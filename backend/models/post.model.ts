@@ -1,8 +1,8 @@
 import {model, Schema} from 'mongoose';
 
 export interface PostModel {
-    id: number;
-    author: number;
+    id: string;
+    author: string;
     published: boolean;
     postDate: Date;
     title: string;
@@ -24,7 +24,7 @@ export interface PostModel {
 // User Schema
 export const PostSchema = new Schema<PostModel>({
     author: {
-        type: Number,
+        type: String,
         ref: 'User',
         required: true
     },

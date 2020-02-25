@@ -30,7 +30,7 @@ export const createPost = async (req: any, res: any) => {
     try {
         // Req.body should have data for post
         const data = {
-            author: req.user._id,
+            author: req.user.id,
             published: req.body.published,
             postDate: req.body.postDate,
             title: req.body.title,
@@ -67,6 +67,7 @@ export const createPost = async (req: any, res: any) => {
             };
         }
         const post = await new Post(data);
+        await post.save();
         res.status(201).send({post})
     } catch (error) {
         console.log(error);
@@ -80,8 +81,17 @@ export const createPost = async (req: any, res: any) => {
 };
 
 export const readPost = async (req: any, res: any) => {
-
-    res.send(req.user);
+    try {
+        Post.findById(String(req.params.id), (err: any, result: any) => {
+            if (err) {
+                res.status(500).send('READ_POST_FAIL');
+            } else {
+                res.status(200).send(result);
+            }
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
 
 export const deletePost = async (req: any, res: any) => {
