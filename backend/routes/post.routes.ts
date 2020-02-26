@@ -1,7 +1,16 @@
 import * as express from 'express';
 import { auth } from '../middleware/auth';
 import { postAuth } from '../middleware/postAuth';
-import { createPost, readPost, updatePost, deletePost, listPosts, listMyPosts, listUserPosts } from '../controllers/post.controller';
+import {
+    createPost,
+    readPost,
+    updatePost,
+    deletePost,
+    listPosts,
+    listMyPosts,
+    listUserPosts,
+    readPublishedPost
+} from '../controllers/post.controller';
 
 export const postRoutes = express.Router();
 
@@ -17,8 +26,11 @@ postRoutes.get('/list/me', auth, listMyPosts);
 // List User Published Posts
 postRoutes.get('/list/:id', listUserPosts);
 
-// Read Post
-postRoutes.get('/:id', readPost);
+// Read Published Post
+postRoutes.get('/:id', readPublishedPost);
+
+// Read Any of your own Posts
+postRoutes.get('/:id/me', postAuth, readPost);
 
 // Update Post
 postRoutes.put('/:id/update', postAuth, updatePost);

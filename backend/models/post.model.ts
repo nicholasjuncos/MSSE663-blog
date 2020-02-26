@@ -11,9 +11,13 @@ export interface PostModel {
     description1: string;
     subtitle2: string;
     description2: string;
-    quote: string;
-    quoter: string;
-    tags: [];
+    subtitle3: string;
+    description3: string;
+    quote1: string;
+    quoter1: string;
+    quote2: string;
+    quoter2: string;
+    category: string;
     likeCount: number;
     coverImg: {imageURL: string, data: Buffer, contentType: String};
     img1: {imageURL: string, data: Buffer, contentType: String};
@@ -62,12 +66,9 @@ export const PostSchema = new Schema<PostModel>({
     quoter: {
         type: String
     },
-    tags: [{
-        tag: {
-            type: String,
-            required: true
-        }
-    }],
+    category: {
+        type: String
+    },
     likeCount: {
         type: Number,
         default: 0

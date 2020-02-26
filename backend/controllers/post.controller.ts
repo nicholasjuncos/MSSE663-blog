@@ -14,9 +14,13 @@ export const createPost = async (req: any, res: any) => {
             description1: req.body.description1,
             subtitle2: req.body.subtitle2,
             description2: req.body.description2,
-            quote: req.body.quote,
-            quoter: req.body.quoter,
-            tags: req.body.tags,
+            subtitle3: req.body.subtitle3,
+            description3: req.body.description3,
+            quote1: req.body.quote1,
+            quoter1: req.body.quoter1,
+            quote2: req.body.quote2,
+            quoter2: req.body.quoter2,
+            category: req.body.category,
             likeCount: 0
         };
         if (req.files) {
@@ -71,6 +75,24 @@ export const readPost = async (req: any, res: any) => {
     }
 };
 
+export const readPublishedPost = async (req: any, res: any) => {
+    const currentDate = Date();
+    try {
+        const post = await Post.findOne({id: req.params.id, published: true, postDate: {$lte: currentDate}}, (err: any, result: any) => {
+            if (err) {
+                res.status(500).send('READ_POST_FAIL');
+            }
+        });
+        if (!post) {
+            throw new Error();
+        } else {
+            res.status(200).send(post);
+        }
+    } catch (error) {
+        res.status(500).send('POST_DNE');
+    }
+};
+
 export const updatePost = async (req: any, res: any) => {
     const newData = {};
     if (req.body.published) {
@@ -97,14 +119,26 @@ export const updatePost = async (req: any, res: any) => {
     if (req.body.description2) {
         newData['description2'] = req.body.description2;
     }
-    if (req.body.quote) {
-        newData['quote'] = req.body.quote;
+    if (req.body.subtitle3) {
+        newData['subtitle3'] = req.body.subtitle3;
     }
-    if (req.body.quote) {
-        newData['quoter'] = req.body.quoter;
+    if (req.body.description3) {
+        newData['description3'] = req.body.description3;
     }
-    if (req.body.tags) {
-        newData['tags'] = req.body.tags;
+    if (req.body.quote1) {
+        newData['quote1'] = req.body.quote1;
+    }
+    if (req.body.quoter1) {
+        newData['quoter1'] = req.body.quoter1;
+    }
+    if (req.body.quote2) {
+        newData['quote2'] = req.body.quote2;
+    }
+    if (req.body.quoter2) {
+        newData['quoter2'] = req.body.quoter2;
+    }
+    if (req.body.category) {
+        newData['category'] = req.body.category;
     }
     if (req.files) {
         newData['coverImg'] = {
