@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as Rellax from 'rellax';
+import {PostService} from '../post.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -10,7 +11,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   data: Date = new Date();
   focus;
 
-  constructor() { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
     const rellaxHeader = new Rellax('.rellax-header');
