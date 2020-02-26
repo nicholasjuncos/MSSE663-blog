@@ -12,6 +12,7 @@ import {ImageUploadModule} from '../shared/image-upload/image-upload.module';
 import { EditUserComponent } from './profile/edit-user/edit-user.component';
 import { DetailsUserComponent } from './profile/details-user/details-user.component';
 import {PostsModule} from '../posts/posts.module';
+import {FooterModule} from '../shared/footer/footer.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ProfileComponent, EditUserComponent, DetailsUserComponent],
@@ -22,7 +23,8 @@ import {PostsModule} from '../posts/posts.module';
         RouterModule,
         UserRoutingModule,
         ImageUploadModule,
-        PostsModule
+        PostsModule,
+        FooterModule
     ],
     exports: [
         LoginComponent

@@ -1,0 +1,33 @@
+<footer class="footer footer-default ">
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <a [routerLink]="['/home']">
+            Mongo Blog
+          </a>
+        </li>
+        <!--          <li>-->
+        <!--            <a href="/about">-->
+        <!--              About Me-->
+        <!--            </a>-->
+        <!--          </li>-->
+        <li>
+          <a [routerLink]="['/blog']">
+            Posts
+          </a>
+        </li>
+        <!--          <li>-->
+        <!--            <a href="https://www.creative-tim.com/license">-->
+        <!--              License-->
+        <!--            </a>-->
+        <!--          </li>-->
+      </ul>
+    </nav>
+    <div class="copyright">
+      &copy;
+      {{data | date: 'yyyy'}}, Designed and Coded by
+      <a href="#about">Nicholas Juncos</a>.
+    </div>
+  </div>
+</footer>

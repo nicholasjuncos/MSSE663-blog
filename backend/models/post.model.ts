@@ -60,10 +60,22 @@ export const PostSchema = new Schema<PostModel>({
     description2: {
         type: String
     },
-    quote: {
+    subtitle3: {
         type: String
     },
-    quoter: {
+    description3: {
+        type: String
+    },
+    quote1: {
+        type: String
+    },
+    quoter1: {
+        type: String
+    },
+    quote2: {
+        type: String
+    },
+    quoter2: {
         type: String
     },
     category: {

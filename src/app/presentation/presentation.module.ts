@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { PresentationComponent } from './presentation.component';
+import {FooterModule} from '../shared/footer/footer.module';
 
 @NgModule({
     imports: [
@@ -13,10 +14,11 @@ import { PresentationComponent } from './presentation.component';
         BrowserModule,
         FormsModule,
         RouterModule,
-        NgbModule
+        NgbModule,
+        FooterModule
     ],
     declarations: [ PresentationComponent ],
-    exports:[ PresentationComponent ],
+    exports: [ PresentationComponent ],
     providers: []
 })
 export class PresentationModule { }

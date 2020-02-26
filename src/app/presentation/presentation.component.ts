@@ -14,7 +14,6 @@ export class PresentationComponent implements OnInit, OnDestroy, AfterViewInit {
         middle: false,
         right: false
     };
-    date : Date = new Date();
 
      constructor() { }
 

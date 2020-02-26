@@ -7,7 +7,6 @@ import * as Rellax from 'rellax';
   styleUrls: ['./blogposts.component.scss']
 })
 export class BlogpostsComponent implements OnInit, OnDestroy {
-  data: Date = new Date();
   focus;
 
   constructor() { }
