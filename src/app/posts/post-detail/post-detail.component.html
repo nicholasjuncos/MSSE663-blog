@@ -8,7 +8,9 @@
         <div class="col-md-8 ml-auto mr-auto text-center">
           <h2 class="title">{{post.title}}</h2>
           <h4 *ngIf="post.title2">{{post.title2}}</h4>
-          <h6>{{post.postDate}}</h6>
+          <h6>{{post.postDate | date : 'longDate'}}</h6>
+<!-- TODO: ADD BUTTON TO PUBLISH AND UNPUBLISH -->
+          <h6 *ngIf="owner"><span *ngIf="post.published">Published</span><span *ngIf="!post.published">Unpublished</span></h6>
         </div>
       </div>
     </div>
@@ -101,11 +103,13 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="blog-tags">
+                  <!--  TODO: MAKE THIS REDIRECT TO A LIST -->
                   Category:
                   <span class="label label-primary">{{post.category}}</span>
                 </div>
               </div>
               <div class="col-md-6">
+                <!--  TODO: ADD LIKE ABILITY -->
                 <!-- IF NOT LIKED -->
                 <a href="#" class="btn-outline-primary btn-round pull-right" style="border: 1px solid;">
                   <i class="fa fa-thumbs-up"></i> 232
@@ -121,7 +125,7 @@
               <div class="row">
                 <div class="col-md-2">
                   <div class="card-avatar">
-                    <a href="#pablo">
+                    <a [routerLink]="['/profile', author.id]">
                       <img class="img img-raised" src="{{this.authorImg}}" alt="author_img"/>
                     </a>
                     <div class="ripple-container"></div>
@@ -131,6 +135,7 @@
                   <h4 class="card-title">{{author.firstName}} {{author.lastName}}</h4>
                 </div>
                 <div class="col-md-2">
+                  <!--  TODO: ADD FOLLOW ABILITY -->
                   <button type="button" class="btn btn-default pull-right btn-round">Follow</button>
                 </div>
               </div>
@@ -139,6 +144,7 @@
         </div>
       </div>
     </div>
+<!--  TODO: ADD COMMENTS SECTION AND CAPABILITY -->
 <!--    <div class="section section-comments">-->
 <!--      <div class="container">-->
 <!--        <div class="row">-->
@@ -233,71 +239,72 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
-    <div class="section">
-      <div class="container">
-        <div class="col-md-12">
-          <h2 class="title text-center">Similar Stories</h2>
-          <br />
-          <div class="blogs-1" id="blogs-1">
-            <div class="row">
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="card card-plain card-blog">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <div class="card-image">
-                        <img class="img img-raised rounded" src="assets/img/examples/card-blog4.jpg">
-                      </div>
-                    </div>
-                    <div class="col-md-7">
-                      <h6 class="category text-info">Enterprise</h6>
-                      <h3 class="card-title">
-                        <a href="#pablo">Warner Music Group buys concert discovery service Songkick</a>
-                      </h3>
-                      <p class="card-description">
-                        Warner Music Group announced today it’s acquiring the selected assets of the music platform Songkick, including its app for finding concerts and the company’s trademark.
-                      </p>
-                      <p class="author">
-                        by
-                        <a href="#pablo">
-                          <b>Sarah Perez</b>
-                        </a>, 2 days ago
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card card-plain card-blog">
-                  <div class="row">
-                    <div class="col-md-7">
-                      <h6 class="category text-danger">
-                        <i class="now-ui-icons now-ui-icons media-2_sound-wave"></i> Startup
-                      </h6>
-                      <h3 class="card-title">
-                        <a href="#pablo">Insticator raises $5.2M to help publishers</a>
-                      </h3>
-                      <p class="card-description">
-                        Insticator is announcing that it has raised $5.2 million in Series A funding. The startup allows online publishers to add quizzes, polls and other interactive elements...
-                      </p>
-                      <p class="author">
-                        by
-                        <a href="#pablo">
-                          <b>Anthony Ha</b>
-                        </a>, 5 days ago
-                      </p>
-                    </div>
-                    <div class="col-md-5">
-                      <div class="card-image">
-                        <img class="img img-raised rounded
-                                        " src="assets/img/examples/card-blog6.jpg">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--  TODO: ADD RELATED POSTS -->
+<!--    <div class="section">-->
+<!--      <div class="container">-->
+<!--        <div class="col-md-12">-->
+<!--          <h2 class="title text-center">Similar Stories</h2>-->
+<!--          <br />-->
+<!--          <div class="blogs-1" id="blogs-1">-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-10 ml-auto mr-auto">-->
+<!--                <div class="card card-plain card-blog">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-md-5">-->
+<!--                      <div class="card-image">-->
+<!--                        <img class="img img-raised rounded" src="assets/img/examples/card-blog4.jpg">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-7">-->
+<!--                      <h6 class="category text-info">Enterprise</h6>-->
+<!--                      <h3 class="card-title">-->
+<!--                        <a href="#pablo">Warner Music Group buys concert discovery service Songkick</a>-->
+<!--                      </h3>-->
+<!--                      <p class="card-description">-->
+<!--                        Warner Music Group announced today it’s acquiring the selected assets of the music platform Songkick, including its app for finding concerts and the company’s trademark.-->
+<!--                      </p>-->
+<!--                      <p class="author">-->
+<!--                        by-->
+<!--                        <a href="#pablo">-->
+<!--                          <b>Sarah Perez</b>-->
+<!--                        </a>, 2 days ago-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="card card-plain card-blog">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-md-7">-->
+<!--                      <h6 class="category text-danger">-->
+<!--                        <i class="now-ui-icons now-ui-icons media-2_sound-wave"></i> Startup-->
+<!--                      </h6>-->
+<!--                      <h3 class="card-title">-->
+<!--                        <a href="#pablo">Insticator raises $5.2M to help publishers</a>-->
+<!--                      </h3>-->
+<!--                      <p class="card-description">-->
+<!--                        Insticator is announcing that it has raised $5.2 million in Series A funding. The startup allows online publishers to add quizzes, polls and other interactive elements...-->
+<!--                      </p>-->
+<!--                      <p class="author">-->
+<!--                        by-->
+<!--                        <a href="#pablo">-->
+<!--                          <b>Anthony Ha</b>-->
+<!--                        </a>, 5 days ago-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-5">-->
+<!--                      <div class="card-image">-->
+<!--                        <img class="img img-raised rounded-->
+<!--                                        " src="assets/img/examples/card-blog6.jpg">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   <app-footer></app-footer>
 </div>
 </ng-container>
