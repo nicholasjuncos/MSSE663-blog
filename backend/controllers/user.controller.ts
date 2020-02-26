@@ -3,6 +3,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 import {databaseSecret} from '../environment';
+// import {Post} from '../models/post.model';
 
 const generateAuthToken = async (user) => {
     const token = jwt.sign({_id: user._id}, databaseSecret);
@@ -55,6 +56,23 @@ export const registerUser = async (req: any, res: any) => {
 
 export const getLoggedInUser = async (req: any, res: any) => {
     res.send(req.user);
+};
+
+export const readUser = async (req: any, res: any) => {
+    try {
+        const user = await User.findById(String(req.params.id), (err: any, result: any) => {
+            if (err) {
+                res.status(500).send('READ_USER_FAIL');
+            }
+        });
+        if (!user) {
+            throw new Error();
+        } else {
+            res.status(200).send(user);
+        }
+    } catch (error) {
+        res.status(500).send('USER_DNE');
+    }
 };
 
 export const loginUser = async (req: any, res: any) => {

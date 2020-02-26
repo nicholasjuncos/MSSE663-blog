@@ -8,6 +8,7 @@ import {PostModel} from '../../../../backend/models/post.model';
 })
 export class PostListComponent implements OnInit {
   @Input() posts: [PostModel];
+  @Input() post_length: number;
 
   constructor() { }
 

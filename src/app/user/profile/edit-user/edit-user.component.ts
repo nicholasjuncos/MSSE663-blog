@@ -31,8 +31,7 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     this.updateUserForm = this.formBuilder.group({
       firstName: [this.authService.currentUserValue.firstName, Validators.required],
-      lastName: [this.authService.currentUserValue.lastName, Validators.required],
-      img: ['', ]
+      lastName: [this.authService.currentUserValue.lastName, Validators.required]
     });
     this.updatePasswordForm = this.formBuilder.group({
       password: ['', Validators.required],
@@ -50,11 +49,11 @@ export class EditUserComponent implements OnInit {
   }
 
   get fPassword() {
-    return this.updateUserForm.controls;
+    return this.updatePasswordForm.controls;
   }
 
   get fImg() {
-    return this.updateUserForm.controls;
+    return this.updateImgForm.controls;
   }
 
   updateUser() {

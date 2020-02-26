@@ -17,9 +17,9 @@ export const auth = async (req: any, res: any, next: any) => {
       req.token = token;
       next();
     } catch (error) {
-      res.status(401).send({error: 'Not authorized to access these resources.'});
+      res.status(401).send('UNAUTHORIZED_ERROR');
     }
   } catch (error) {
-    res.status(401).send({error: 'Not authorized to access these resources'});
+    res.status(401).send('UNAUTHORIZED_ERROR');
   }
 };

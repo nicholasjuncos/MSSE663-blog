@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import * as Rellax from 'rellax';
 
-import {PasswordValidation} from '../../shared/validators';
 import {AuthService} from '../auth.service';
+import {PostService} from '../../posts/post.service';
 import {environment} from '../../../environments/environment';
 import {UserModel} from '../../../../backend/models/user.model';
+import {PostModel} from '../../../../backend/models/post.model';
 
 
 @Component({
@@ -31,14 +32,49 @@ export class ProfileComponent implements OnInit, OnDestroy {
     focus;
     focus1;
     currentUser: UserModel;
+    isUser: boolean;
+    posts: [PostModel];
+    post_length: number;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private authService: AuthService,
+        private postService: PostService,
         // private alertService: AlertService
     ) {
+        this.isUser = true;
         this.currentUser = this.authService.currentUserValue;
+        if (this.activatedRoute.snapshot.paramMap.get('id')) {
+            const id = this.activatedRoute.snapshot.paramMap.get('id');
+            this.isUser = false;
+            this.authService.getUser(id)
+                .pipe(first())
+                .subscribe(
+                    res => {
+                        this.currentUser = res;
+                    }
+                )
+            this.postService.getUserPostList(this.currentUser.id)
+                .pipe(first())
+                .subscribe(
+                    res => {
+                        this.posts = res.posts;
+                        this.post_length = res.posts.length;
+                    }
+                );
+        } else {
+            this.postService.getMyPostList()
+                .pipe(first())
+                .subscribe(
+                    res => {
+                        this.posts = res.posts;
+                        this.post_length = res.posts.length;
+                    }
+                );
+        }
+        // this.posts = res.posts;
+        // this.post_length = res.post_length;
         this.state = {
             userProfileImage: this.currentUser.img ? this.BACKEND_URL + '/' + this.currentUser.img.imageURL : null
         }

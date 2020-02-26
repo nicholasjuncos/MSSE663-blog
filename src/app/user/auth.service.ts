@@ -139,6 +139,15 @@ export class AuthService {
             catchError(this.handleError));
     }
 
+    getUser(id: string): Observable<any> {
+        return this.httpClient.get<any>(`${this.API_URL}/users/` + id)
+            .pipe(map(res => {
+                    return res;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
     handleError(errorRes: HttpErrorResponse) {
         let errorMessage = 'An unknown error occurred!';
         if (!errorRes.error) {
@@ -146,6 +155,9 @@ export class AuthService {
         }
         const errorCode = errorRes.error;
         switch (errorCode) {
+            case 'USER_DNE':
+                errorMessage = 'This user does not exist!';
+                break;
             case 'AUTH_USERNAME':
                 errorMessage = 'This username exists already';
                 break;
@@ -157,6 +169,9 @@ export class AuthService {
                 break;
             case 'UPDATE_FAIL':
                 errorMessage = 'Failed to update user. Please try again.';
+                break;
+            case 'UNAUTHORIZED_ERROR':
+                errorMessage = 'Not authorized to access these resources';
                 break;
             default: {
                 errorMessage = 'An error occurred! Please try again or contact support.';

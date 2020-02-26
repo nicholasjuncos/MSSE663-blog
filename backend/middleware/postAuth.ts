@@ -35,9 +35,9 @@ export const postAuth = async (req: any, res: any, next: any) => {
                 res.status(401).send('POST_DNE');
             }
         } catch (error) {
-            res.status(401).send({error: 'Not authorized to access these resources.'});
+            res.status(401).send('UNAUTHORIZED_ERROR');
         }
     } catch (error) {
-        res.status(401).send({error: 'Not authorized to access these resources'});
+        res.status(401).send('UNAUTHORIZED_ERROR');
     }
 };

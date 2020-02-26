@@ -1,3 +1,38 @@
-<p>
-  details-user works!
-</p>
+<ngb-tabset [justify]="'center'" type="pills"
+            class="nav nav-pills nav-pills-primary  nav-pills-just-icons justify-content-center tab-space">
+    <ngb-tab>
+        <ng-template ngbTabTitle>
+            <i class="now-ui-icons design_image"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="row">
+                <h2 class="col-12 title text-primary">View Posts</h2>
+                <app-post-list class="col-12" [posts]="posts" [post_length]="post_length"></app-post-list>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+        <ng-template ngbTabTitle>
+            <i class="now-ui-icons design-2_ruler-pencil"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="row">
+                <h2 class="col-12 title text-primary">View Likes</h2>
+                <h6 class="col-12 text-center">Coming soon...</h6>
+<!--                <app-like-list [likes]="likes"></app-like-list>-->
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+        <ng-template ngbTabTitle>
+            <i class="now-ui-icons location_world"></i>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <div class="row">
+                <h2 class="col-12 title text-primary">View Follows</h2>
+                <h6 class="col-12 text-center">Coming soon...</h6>
+                <!--        <app-follows-list [follows]="follows"></app-follows-list>-->
+            </div>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>

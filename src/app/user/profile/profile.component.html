@@ -10,8 +10,8 @@
       <p class="category">{{this.currentUser.username}}</p>
       <div class="content">
         <div class="social-description">
-          <h2>26</h2>
-          <p>Comments</p>
+          <h2>{{this.post_length}}</h2>
+          <p>Posts</p>
         </div>
       </div>
     </div>
@@ -20,17 +20,45 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <app-edit-user
-                  (sendUserForm)="updateUser($event)"
-                  (sendPasswordForm)="updatePassword($event)"
-                  (sendImgForm)="updateImg($event)"
-                  [loading]='loading'
-                  [userSubmitted]='userSubmitted'
-                  [userError]='userError'
-                  [passSubmitted]='passSubmitted'
-                  [passError]='passError'
-                  [imgSubmitted]='imgSubmitted'
-                  [imgError]='imgError'></app-edit-user>
+          <h4 *ngIf="isUser" class="title text-center">My Portfolio</h4>
+          <h4 *ngIf="!isUser" class="title text-center">{{this.currentUser.firstName}} {{this.currentUser.lastName}}'s Portfolio</h4>
+          <app-details-user *ngIf="!isUser" [posts]="posts" [post_length]="post_length"></app-details-user>
+          <ngb-tabset *ngIf="isUser" [justify]="'center'" type="pills"
+                      class="nav nav-pills nav-pills-primary  nav-pills-just-icons justify-content-center tab-space">
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i class="now-ui-icons users_circle-08"></i>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <h2 class="col-12 title text-primary">User Details</h2>
+                  <app-details-user class="col-12" [posts]="posts" [post_length]="post_length"></app-details-user>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i class="now-ui-icons design-2_ruler-pencil"></i>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <h2 class="col-12 title text-primary">Edit User</h2>
+                  <app-edit-user class="col-12"
+                                 (sendUserForm)="updateUser($event)"
+                                 (sendPasswordForm)="updatePassword($event)"
+                                 (sendImgForm)="updateImg($event)"
+                                 [loading]='loading'
+                                 [userSubmitted]='userSubmitted'
+                                 [userError]='userError'
+                                 [passSubmitted]='passSubmitted'
+                                 [passError]='passError'
+                                 [imgSubmitted]='imgSubmitted'
+                                 [imgError]='imgError'
+                  ></app-edit-user>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
         </div>
       </div>
     </div>

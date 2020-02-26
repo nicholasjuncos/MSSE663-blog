@@ -16,13 +16,11 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthInterceptor } from './user/auth.interceptor';
 
 import { PresentationModule } from './presentation/presentation.module';
-import { LimitToPipe } from './limit-to.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent,
-        LimitToPipe
+        NavbarComponent
     ],
     imports: [
         HttpClientModule,
@@ -44,7 +42,6 @@ import { LimitToPipe } from './limit-to.pipe';
         multi: true
     }],
     exports: [
-        LimitToPipe
     ],
     bootstrap: [AppComponent]
 })

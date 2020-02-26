@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { auth } from '../middleware/auth';
-import { registerUser, loginUser, getLoggedInUser, logoutAllUser, logoutUser, updateUser } from '../controllers/user.controller';
+import {registerUser, loginUser, getLoggedInUser, logoutAllUser, logoutUser, updateUser, readUser} from '../controllers/user.controller';
 
 export const userRoutes = express.Router();
 
@@ -21,3 +21,6 @@ userRoutes.post('/logoutAll', auth, logoutAllUser);
 
 // Update User. Slightly adapted to only work with password and isAuthor field.
 userRoutes.put('/update', auth, updateUser);
+
+// Get user information
+userRoutes.get('/:id', readUser);
