@@ -10,9 +10,10 @@ import { PostCardComponent } from './post-card/post-card.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostFormComponent } from './post-form/post-form.component';
+import { BlogpostsComponent } from './blogposts/blogposts.component';
 
 @NgModule({
-  declarations: [PostsComponent, PostCardComponent, PostDetailComponent, PostListComponent, PostFormComponent],
+  declarations: [PostsComponent, PostCardComponent, PostDetailComponent, PostListComponent, PostFormComponent, BlogpostsComponent],
   imports: [
     CommonModule,
     NgbModule,

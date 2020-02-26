@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as Rellax from 'rellax';
 
 @Component({
-  selector: 'app-post-detail',
-  templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.scss']
+  selector: 'app-blogposts',
+  templateUrl: './blogposts.component.html',
+  styleUrls: ['./blogposts.component.scss']
 })
-export class PostDetailComponent implements OnInit, OnDestroy {
+export class BlogpostsComponent implements OnInit, OnDestroy {
   data: Date = new Date();
   focus;
 
@@ -15,16 +15,16 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const rellaxHeader = new Rellax('.rellax-header');
     const body = document.getElementsByTagName('body')[0];
-    body.classList.add('blog-post');
+    body.classList.add('blog-posts');
     const navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.add('navbar-transparent');
-
   }
-
   ngOnDestroy() {
     const body = document.getElementsByTagName('body')[0];
-    body.classList.remove('blog-post');
+    body.classList.remove('blog-posts');
     const navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
+
   }
+
 }
