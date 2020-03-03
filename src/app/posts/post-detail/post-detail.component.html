@@ -8,7 +8,7 @@
         <div class="col-md-8 ml-auto mr-auto text-center">
           <h2 class="title">{{post.title}}</h2>
           <h4 *ngIf="post.title2">{{post.title2}}</h4>
-          <h6>{{post.postDate | date : 'longDate'}}</h6>
+          <h6>{{post.postDate | date : 'MMMM dd yyyy'}}</h6>
 <!-- TODO: ADD BUTTON TO PUBLISH AND UNPUBLISH -->
           <h6 *ngIf="owner"><span *ngIf="post.published">Published</span><span *ngIf="!post.published">Unpublished</span></h6>
           <h6 *ngIf="owner"><a [routerLink]="['/blog/update', post._id]">Edit</a></h6>

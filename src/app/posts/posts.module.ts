@@ -12,6 +12,7 @@ import {PostListComponent} from './post-list/post-list.component';
 import {PostFormComponent} from './post-form/post-form.component';
 import {BlogpostsComponent} from './blogposts/blogposts.component';
 import {FooterModule} from '../shared/footer/footer.module';
+import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 
 @NgModule({
     declarations: [PostsComponent, PostCardComponent, PostDetailComponent, PostListComponent, PostFormComponent, BlogpostsComponent],
@@ -22,7 +23,8 @@ import {FooterModule} from '../shared/footer/footer.module';
         RouterModule,
         PostsRoutingModule,
         ImageUploadModule,
-        FooterModule
+        FooterModule,
+        JwBootstrapSwitchNg2Module
     ],
     exports: [
         PostCardComponent,

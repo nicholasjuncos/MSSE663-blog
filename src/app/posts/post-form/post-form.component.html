@@ -1,241 +1,290 @@
-<ng-container *ngIf="post$ | async as post">
-  <div class="wrapper">
-    <div class="page-header page-header-small" filter-color="orange">
-      <div class="page-header-image rellax-header" data-rellax-speed="-8" style="background-image: url('../../../assets/img/bg5.jpg') ;"></div>
-      <div class="content-center">
-        <h3 class="title"><span *ngIf='post'>Edit</span> <span *ngIf='!post'>Create</span> Post</h3>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <form class="col-12" name="postForm" [formGroup]="postForm" (ngSubmit)="createUpdatePost()" enctype="multipart/form-data">
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title.errors }">
-              <label for="title">Title</label>
-              <input type="text" class="form-control" name="title" formControlName="title"
-                     id="title" required/>
-              <small *ngIf="submitted && f.title.errors" class="text-danger">Title is
-                required</small>
+<ng-container *ngIf="edit">
+    <div class="wrapper" *ngIf="post$ | async as post">
+        <div class="page-header page-header-small" filter-color="orange">
+            <div class="page-header-image rellax-header" data-rellax-speed="-8"
+                 style="background-image: url('../../../assets/img/bg5.jpg') ;"></div>
+            <div class="content-center">
+                <h3 class="title"><span *ngIf='post'>Edit</span> <span *ngIf='!post'>Create</span> Post</h3>
             </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title2.errors }">
-                <label for="title2">Title 2</label>
-                <input type="text" class="form-control" name="title2" formControlName="title2"
-                       id="title2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle1.errors }">
-                <label for="subtitle1">Subtitle 1</label>
-                <input type="text" class="form-control" name="subtitle1" formControlName="subtitle1"
-                       id="subtitle1" required/>
-                <small *ngIf="submitted && f.subtitle1.errors" class="text-danger">Subtitle 1 is
-                  required</small>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description1.errors }">
-                <label for="description1">Description 1</label>
-                <textarea class="form-control" name="description1" formControlName="description1"
-                       id="description1" required></textarea>
-                <small *ngIf="submitted && f.description1.errors" class="text-danger">Description 1 is
-                  required</small>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote1.errors }">
-                <label for="quote1">Quote 1</label>
-                <input type="text" class="form-control" name="quote1" formControlName="quote1"
-                       id="quote1"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter1.errors }">
-                <label for="quoter1">Quoter 1</label>
-                <input type="text" class="form-control" name="quoter1" formControlName="quoter1"
-                       id="quoter1"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle2.errors }">
-                <label for="subtitle2">Subtitle 2</label>
-                <input type="text" class="form-control" name="subtitle2" formControlName="subtitle2"
-                       id="subtitle2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description2.errors }">
-                <label for="description2">Description 2</label>
-                <textarea class="form-control" name="description2" formControlName="description2"
-                       id="description2"></textarea>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote2.errors }">
-                <label for="quote2">Quote 2</label>
-                <input type="text" class="form-control" name="quote2" formControlName="quote2"
-                       id="quote2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter2.errors }">
-                <label for="quoter2">Quoter 2</label>
-                <input type="text" class="form-control" name="quoter2" formControlName="quoter2"
-                       id="quoter2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle3.errors }">
-                <label for="subtitle3">Subtitle 3</label>
-                <input type="text" class="form-control" name="subtitle3" formControlName="subtitle3"
-                       id="subtitle3"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description3.errors }">
-                <label for="description3">Description 3</label>
-                <textarea class="form-control" name="description3" formControlName="description3"
-                          id="description3"></textarea>
-              </div>
-              <!--              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.category.errors }">-->
-              <!--                <label for="category">Category</label>-->
-              <!--                <textarea class="form-control" name="category" formControlName="category"-->
-              <!--                          id="category"></textarea>-->
-              <!--              </div>-->
-              <div class="text-center">
-                <label class="w-100 text-left" for="coverImg">Cover Image</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'coverImg'" [image]="this.coverImg"></app-image-upload>
-              </div>
-              <div class="text-center">
-                <label class="w-100 text-left" for="img1">Image 1</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img1'" [image]="this.img1"></app-image-upload>
-              </div>
-              <div class="text-center">
-                <label class="w-100 text-left" for="img2">Image 2</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img2'" [image]="this.img2"></app-image-upload>
-              </div>
-              <div class="text-center">
-                <label class="w-100 text-left" for="img3">Image 3</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img3'" [image]="this.img3"></app-image-upload>
-              </div>
-              <div *ngIf="submitted && error" class="form-group"
-                   [ngClass]="{ 'has-error': submitted && error }">
-                <h6 class="text-danger">{{error}}</h6>
-              </div>
-              <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary btn-round" type="submit">
-                  <span *ngIf="!loading && post">Update</span>
-                  <span *ngIf="!loading && !post">Create</span>
-                  <img *ngIf="loading"
-                       src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
-      </div>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="col-12" name="postForm" [formGroup]="postForm" (ngSubmit)="createUpdatePost()"
+                              enctype="multipart/form-data">
+                            <div class="datepicker-container">
+                                <div class="form-group">
+                                    <label for="postDate">Post Date</label>
+                                    <input class="form-control datetimepicker" placeholder="Enter Date..."
+                                           name="postDate" formControlName="postDate" id="postDate" ngbDatepicker
+                                           #d="ngbDatepicker" (click)="d.toggle()" data-color="orange">
+                                    <small *ngIf="submitted && f.postDate.errors" class="text-danger">Post Date is
+                                        required</small>
+                                </div>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.published.errors }">
+                                <label class="w-100" for="published">Published</label>
+                                <bSwitch
+                                        [formGroup]="postForm" [formControlName]="'published'">
+                                </bSwitch>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title.errors }">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" name="title" formControlName="title"
+                                       id="title" required/>
+                                <small *ngIf="submitted && f.title.errors" class="text-danger">Title is
+                                    required</small>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title2.errors }">
+                                <label for="title2">Title 2</label>
+                                <input type="text" class="form-control" name="title2" formControlName="title2"
+                                       id="title2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle1.errors }">
+                                <label for="subtitle1">Subtitle 1</label>
+                                <input type="text" class="form-control" name="subtitle1" formControlName="subtitle1"
+                                       id="subtitle1" required/>
+                                <small *ngIf="submitted && f.subtitle1.errors" class="text-danger">Subtitle 1 is
+                                    required</small>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description1.errors }">
+                                <label for="description1">Description 1</label>
+                                <textarea class="form-control" name="description1" formControlName="description1"
+                                          id="description1" required></textarea>
+                                <small *ngIf="submitted && f.description1.errors" class="text-danger">Description 1 is
+                                    required</small>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote1.errors }">
+                                <label for="quote1">Quote 1</label>
+                                <input type="text" class="form-control" name="quote1" formControlName="quote1"
+                                       id="quote1"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter1.errors }">
+                                <label for="quoter1">Quoter 1</label>
+                                <input type="text" class="form-control" name="quoter1" formControlName="quoter1"
+                                       id="quoter1"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle2.errors }">
+                                <label for="subtitle2">Subtitle 2</label>
+                                <input type="text" class="form-control" name="subtitle2" formControlName="subtitle2"
+                                       id="subtitle2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description2.errors }">
+                                <label for="description2">Description 2</label>
+                                <textarea class="form-control" name="description2" formControlName="description2"
+                                          id="description2"></textarea>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote2.errors }">
+                                <label for="quote2">Quote 2</label>
+                                <input type="text" class="form-control" name="quote2" formControlName="quote2"
+                                       id="quote2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter2.errors }">
+                                <label for="quoter2">Quoter 2</label>
+                                <input type="text" class="form-control" name="quoter2" formControlName="quoter2"
+                                       id="quoter2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle3.errors }">
+                                <label for="subtitle3">Subtitle 3</label>
+                                <input type="text" class="form-control" name="subtitle3" formControlName="subtitle3"
+                                       id="subtitle3"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description3.errors }">
+                                <label for="description3">Description 3</label>
+                                <textarea class="form-control" name="description3" formControlName="description3"
+                                          id="description3"></textarea>
+                            </div>
+<!--                            <angular2-multiselect [data]="dropdownList1" [(ngModel)]="selectedItems1"-->
+<!--                                                  [settings]="dropdownSettings1"-->
+<!--                                                  (onSelect)="onItemSelect($event)"-->
+<!--                                                  (onDeSelect)="OnItemDeSelect($event)"-->
+<!--                                                  (onSelectAll)="onSelectAll($event)"-->
+<!--                                                  (onDeSelectAll)="onDeSelectAll($event)">-->
+<!--                            </angular2-multiselect>-->
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="coverImg">Cover Image</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm"
+                                                  [formControlName]="'coverImg'"
+                                                  [image]="this.coverImg"></app-image-upload>
+                            </div>
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="img1">Image 1</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img1'"
+                                                  [image]="this.img1"></app-image-upload>
+                            </div>
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="img2">Image 2</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img2'"
+                                                  [image]="this.img2"></app-image-upload>
+                            </div>
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="img3">Image 3</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img3'"
+                                                  [image]="this.img3"></app-image-upload>
+                            </div>
+                            <div *ngIf="submitted && error" class="form-group"
+                                 [ngClass]="{ 'has-error': submitted && error }">
+                                <h6 class="text-danger">{{error}}</h6>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary btn-round" type="submit">
+                                    <span *ngIf="!loading && post">Update</span>
+                                    <span *ngIf="!loading && !post">Create</span>
+                                    <img *ngIf="loading"
+                                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
-  </div>
 </ng-container>
 <!-- HATE THIS! But it works... -->
-<ng-container *ngIf="!(post$ | async)">
-  <div class="wrapper">
-    <div class="page-header page-header-small" filter-color="orange">
-      <div class="page-header-image rellax-header" data-rellax-speed="-8" style="background-image: url('../../../assets/img/bg5.jpg') ;"></div>
-      <div class="content-center">
-        <h3 class="title"><span *ngIf='post'>Edit</span> <span *ngIf='!post'>Create</span> Post</h3>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <form class="col-12" name="postForm" [formGroup]="postForm" (ngSubmit)="createUpdatePost()" enctype="multipart/form-data">
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title.errors }">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" name="title" formControlName="title"
-                       id="title" required/>
-                <small *ngIf="submitted && f.title.errors" class="text-danger">Title is
-                  required</small>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title2.errors }">
-                <label for="title2">Title 2</label>
-                <input type="text" class="form-control" name="title2" formControlName="title2"
-                       id="title2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle1.errors }">
-                <label for="subtitle1">Subtitle 1</label>
-                <input type="text" class="form-control" name="subtitle1" formControlName="subtitle1"
-                       id="subtitle1" required/>
-                <small *ngIf="submitted && f.subtitle1.errors" class="text-danger">Subtitle 1 is
-                  required</small>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description1.errors }">
-                <label for="description1">Description 1</label>
-                <textarea class="form-control" name="description1" formControlName="description1"
-                          id="description1" required></textarea>
-                <small *ngIf="submitted && f.description1.errors" class="text-danger">Description 1 is
-                  required</small>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote1.errors }">
-                <label for="quote1">Quote 1</label>
-                <input type="text" class="form-control" name="quote1" formControlName="quote1"
-                       id="quote1"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter1.errors }">
-                <label for="quoter1">Quoter 1</label>
-                <input type="text" class="form-control" name="quoter1" formControlName="quoter1"
-                       id="quoter1"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle2.errors }">
-                <label for="subtitle2">Subtitle 2</label>
-                <input type="text" class="form-control" name="subtitle2" formControlName="subtitle2"
-                       id="subtitle2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description2.errors }">
-                <label for="description2">Description 2</label>
-                <textarea class="form-control" name="description2" formControlName="description2"
-                          id="description2"></textarea>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote2.errors }">
-                <label for="quote2">Quote 2</label>
-                <input type="text" class="form-control" name="quote2" formControlName="quote2"
-                       id="quote2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter2.errors }">
-                <label for="quoter2">Quoter 2</label>
-                <input type="text" class="form-control" name="quoter2" formControlName="quoter2"
-                       id="quoter2"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle3.errors }">
-                <label for="subtitle3">Subtitle 3</label>
-                <input type="text" class="form-control" name="subtitle3" formControlName="subtitle3"
-                       id="subtitle3"/>
-              </div>
-              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description3.errors }">
-                <label for="description3">Description 3</label>
-                <textarea class="form-control" name="description3" formControlName="description3"
-                          id="description3"></textarea>
-              </div>
-              <!--              <div class="form-group" [ngClass]="{ 'has-error': submitted && f.category.errors }">-->
-              <!--                <label for="category">Category</label>-->
-              <!--                <textarea class="form-control" name="category" formControlName="category"-->
-              <!--                          id="category"></textarea>-->
-              <!--              </div>-->
-              <div class="text-center">
-                <label class="w-100 text-left" for="coverImg">Cover Image</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'coverImg'" [image]="this.coverImg"></app-image-upload>
-              </div>
-              <div class="text-center">
-                <label class="w-100 text-left" for="img1">Image 1</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img1'" [image]="this.img1"></app-image-upload>
-              </div>
-              <div class="text-center">
-                <label class="w-100 text-left" for="img2">Image 2</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img2'" [image]="this.img2"></app-image-upload>
-              </div>
-              <div class="text-center">
-                <label class="w-100 text-left" for="img3">Image 3</label>
-                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img3'" [image]="this.img3"></app-image-upload>
-              </div>
-              <div *ngIf="submitted && error" class="form-group"
-                   [ngClass]="{ 'has-error': submitted && error }">
-                <h6 class="text-danger">{{error}}</h6>
-              </div>
-              <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary btn-round" type="submit">
-                  <span *ngIf="!loading && post">Update</span>
-                  <span *ngIf="!loading && !post">Create</span>
-                  <img *ngIf="loading"
-                       src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-                </button>
-              </div>
-            </form>
-          </div>
+<ng-container *ngIf="!edit">
+    <div class="wrapper">
+        <div class="page-header page-header-small" filter-color="orange">
+            <div class="page-header-image rellax-header" data-rellax-speed="-8"
+                 style="background-image: url('../../../assets/img/bg5.jpg') ;"></div>
+            <div class="content-center">
+                <h3 class="title"><span *ngIf='post'>Edit</span> <span *ngIf='!post'>Create</span> Post</h3>
+            </div>
         </div>
-      </div>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="col-12" name="postForm" [formGroup]="postForm" (ngSubmit)="createUpdatePost()"
+                              enctype="multipart/form-data">
+                            <div class="datepicker-container">
+                                <div class="form-group">
+                                    <label for="postDate">Post Date</label>
+                                    <input class="form-control datetimepicker" placeholder="Enter Date..."
+                                           name="postDate" formControlName="postDate" id="postDate" ngbDatepicker
+                                           #d="ngbDatepicker"
+                                           (click)="d.toggle()" data-color="orange">
+                                </div>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.published.errors }">
+                                <label class="w-100" for="published">Published</label>
+                                <bSwitch
+                                        [formGroup]="postForm" [formControlName]="'published'">
+                                </bSwitch>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title.errors }">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" name="title" formControlName="title"
+                                       id="title" required/>
+                                <small *ngIf="submitted && f.title.errors" class="text-danger">Title is
+                                    required</small>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.title2.errors }">
+                                <label for="title2">Title 2</label>
+                                <input type="text" class="form-control" name="title2" formControlName="title2"
+                                       id="title2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle1.errors }">
+                                <label for="subtitle1">Subtitle 1</label>
+                                <input type="text" class="form-control" name="subtitle1" formControlName="subtitle1"
+                                       id="subtitle1" required/>
+                                <small *ngIf="submitted && f.subtitle1.errors" class="text-danger">Subtitle 1 is
+                                    required</small>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description1.errors }">
+                                <label for="description1">Description 1</label>
+                                <textarea class="form-control" name="description1" formControlName="description1"
+                                          id="description1" required></textarea>
+                                <small *ngIf="submitted && f.description1.errors" class="text-danger">Description 1 is
+                                    required</small>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote1.errors }">
+                                <label for="quote1">Quote 1</label>
+                                <input type="text" class="form-control" name="quote1" formControlName="quote1"
+                                       id="quote1"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter1.errors }">
+                                <label for="quoter1">Quoter 1</label>
+                                <input type="text" class="form-control" name="quoter1" formControlName="quoter1"
+                                       id="quoter1"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle2.errors }">
+                                <label for="subtitle2">Subtitle 2</label>
+                                <input type="text" class="form-control" name="subtitle2" formControlName="subtitle2"
+                                       id="subtitle2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description2.errors }">
+                                <label for="description2">Description 2</label>
+                                <textarea class="form-control" name="description2" formControlName="description2"
+                                          id="description2"></textarea>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quote2.errors }">
+                                <label for="quote2">Quote 2</label>
+                                <input type="text" class="form-control" name="quote2" formControlName="quote2"
+                                       id="quote2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.quoter2.errors }">
+                                <label for="quoter2">Quoter 2</label>
+                                <input type="text" class="form-control" name="quoter2" formControlName="quoter2"
+                                       id="quoter2"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.subtitle3.errors }">
+                                <label for="subtitle3">Subtitle 3</label>
+                                <input type="text" class="form-control" name="subtitle3" formControlName="subtitle3"
+                                       id="subtitle3"/>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': submitted && f.description3.errors }">
+                                <label for="description3">Description 3</label>
+                                <textarea class="form-control" name="description3" formControlName="description3"
+                                          id="description3"></textarea>
+                            </div>
+<!--                            <angular2-multiselect [data]="dropdownList1" [(ngModel)]="selectedItems1"-->
+<!--                                                  [settings]="dropdownSettings1"-->
+<!--                                                  (onSelect)="onItemSelect($event)"-->
+<!--                                                  (onDeSelect)="OnItemDeSelect($event)"-->
+<!--                                                  (onSelectAll)="onSelectAll($event)"-->
+<!--                                                  (onDeSelectAll)="onDeSelectAll($event)">-->
+<!--                            </angular2-multiselect>-->
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="coverImg">Cover Image</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm"
+                                                  [formControlName]="'coverImg'"
+                                                  [image]="this.coverImg"></app-image-upload>
+                            </div>
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="img1">Image 1</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img1'"
+                                                  [image]="this.img1"></app-image-upload>
+                            </div>
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="img2">Image 2</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img2'"
+                                                  [image]="this.img2"></app-image-upload>
+                            </div>
+                            <div class="text-center">
+                                <label class="w-100 text-left" for="img3">Image 3</label>
+                                <app-image-upload [isRound]="false" [formGroup]="postForm" [formControlName]="'img3'"
+                                                  [image]="this.img3"></app-image-upload>
+                            </div>
+                            <div *ngIf="submitted && error" class="form-group"
+                                 [ngClass]="{ 'has-error': submitted && error }">
+                                <h6 class="text-danger">{{error}}</h6>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary btn-round" type="submit">
+                                    <span *ngIf="!loading && post">Update</span>
+                                    <span *ngIf="!loading && !post">Create</span>
+                                    <img *ngIf="loading"
+                                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
-  </div>
 </ng-container>

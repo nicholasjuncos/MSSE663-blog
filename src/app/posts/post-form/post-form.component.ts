@@ -18,6 +18,8 @@ export class PostFormComponent implements OnInit, OnDestroy {
     postForm: FormGroup;
     returnUrl: string;
     authorID: string;
+    edit: boolean;
+    originalDate: string;
 
     loading: boolean;
     submitted: boolean;
@@ -33,11 +35,14 @@ export class PostFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.authorID = this.authService.currentUserValue.id;
+        // @ts-ignore
+        this.authorID = this.authService.currentUserValue._id;
         if (this.route.snapshot.paramMap.get('id')) {
             const id = this.route.snapshot.paramMap.get('id');
+            this.edit = true;
             this.getPost(id);
         } else {
+            this.edit = false;
             this.postForm = this.formBuilder.group({
                 author: [this.authorID],
                 published: [],
@@ -76,10 +81,17 @@ export class PostFormComponent implements OnInit, OnDestroy {
                 this.img1 = res.img1 ? this.BACKEND_URL + '/' + res.img1.imageURL : null;
                 this.img2 = res.img2 ? this.BACKEND_URL + '/' + res.img2.imageURL : null;
                 this.img3 = res.img3 ? this.BACKEND_URL + '/' + res.img3.imageURL : null;
+                const date = new Date(res.postDate);
+                const dateObject = {
+                    year: date.getUTCFullYear(),
+                    month: date.getUTCMonth(),
+                    day: date.getUTCDate()
+                }
+                this.originalDate = date.toISOString().split('T')[0];
                 this.postForm = this.formBuilder.group({
                     author: [this.authorID],
                     published: [res.published],
-                    postDate: [res.postDate, Validators.required],
+                    postDate: [dateObject, Validators.required],
                     title: [res.title, Validators.required],
                     title2: [res.title2],
                     subtitle1: [res.subtitle1, Validators.required],
@@ -114,10 +126,16 @@ export class PostFormComponent implements OnInit, OnDestroy {
         if (this.postForm.invalid) {
             return;
         }
+        this.postForm.controls['author'].setValue(this.authorID);
+        const postDate = this.postForm.controls['postDate'].value;
+        const newPostDate = new Date();
+        newPostDate.setUTCDate(postDate.day);
+        newPostDate.setUTCMonth(postDate.month);
+        newPostDate.setUTCFullYear(postDate.year);
+        this.postForm.controls['postDate'].setValue(newPostDate);
         this.loading = true;
         if (this.route.snapshot.paramMap.get('id')) {
             const id = this.route.snapshot.paramMap.get('id');
-            console.log(this.postForm.value);
             this.postService.updatePost(id, this.postForm.value)
                 .pipe(first())
                 .subscribe(
