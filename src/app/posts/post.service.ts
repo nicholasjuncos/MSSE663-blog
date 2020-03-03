@@ -15,8 +15,8 @@ import {environment} from '../../environments/environment';
 export class PostService {
     API_URL: string = environment.apiUrl;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
-    // private currentPostSubject: BehaviorSubject<Post>;
-    // public currentPost: Observable<Post>;
+    private currentPostSubject: BehaviorSubject<Post>;
+    public currentPost: Observable<Post>;
 
     constructor(private httpClient: HttpClient, public router: Router) {
     }
@@ -49,7 +49,7 @@ export class PostService {
     }
 
     updatePost(id: string, data: {}): Observable<any> {
-        return this.httpClient.post<any>(`${this.API_URL}/posts/` + id + '/update', data)
+        return this.httpClient.put<any>(`${this.API_URL}/posts/` + id + '/update', data)
             .pipe(map(res => {
                     return res;
                 }),
