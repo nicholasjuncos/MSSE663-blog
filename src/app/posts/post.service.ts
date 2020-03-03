@@ -67,8 +67,10 @@ export class PostService {
     }
 
     getPostList() {
+        console.log('hello');
         return this.httpClient.get<any>(`${this.API_URL}/posts/list`)
             .pipe(map(res => {
+                console.log(res);
                     return res;
                 }),
                 catchError(this.handleError)

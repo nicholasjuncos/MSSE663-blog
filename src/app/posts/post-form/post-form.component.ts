@@ -84,7 +84,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
                 const date = new Date(res.postDate);
                 const dateObject = {
                     year: date.getUTCFullYear(),
-                    month: date.getUTCMonth(),
+                    month: date.getUTCMonth() + 1,
                     day: date.getUTCDate()
                 }
                 this.originalDate = date.toISOString().split('T')[0];
@@ -130,7 +130,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
         const postDate = this.postForm.controls['postDate'].value;
         const newPostDate = new Date();
         newPostDate.setUTCDate(postDate.day);
-        newPostDate.setUTCMonth(postDate.month);
+        newPostDate.setUTCMonth(postDate.month - 1);
         newPostDate.setUTCFullYear(postDate.year);
         this.postForm.controls['postDate'].setValue(newPostDate);
         this.loading = true;

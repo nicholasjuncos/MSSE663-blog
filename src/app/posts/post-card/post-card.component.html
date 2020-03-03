@@ -1,8 +1,8 @@
 <div class="card card-plain card-blog">
     <div class="card-image">
         <a [routerLink]="['/blog', post._id]">
-            <img *ngIf="!post.coverImg.imageURL" class="img rounder img-raised" src="../../../assets/img/image_placeholder.jpg" alt="post_cover_image"/>
-            <img *ngIf="post.coverImg.imageURL" class="img rounder img-raised" src="{{this.BACKEND_URL + '/' + post.coverImg.imageURL}}" alt="post_cover_image"/>
+            <img *ngIf="!post.coverImg" class="img rounder img-raised" src="../../../assets/img/image_placeholder.jpg" alt="post_cover_image"/>
+            <img *ngIf="post.coverImg" class="img rounder img-raised" src="{{this.BACKEND_URL + '/' + post.coverImg.imageURL}}" alt="post_cover_image"/>
         </a>
     </div>
     <div class="card-body">
