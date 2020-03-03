@@ -49,7 +49,6 @@ export const createPost = async (req: any, res: any) => {
         await post.save();
         res.status(201).send({post})
     } catch (error) {
-        console.log(error);
         if (error['code'] === 11000) {
             res.status(400).send('OTHER_ERROR');
         } else {
@@ -78,7 +77,7 @@ export const readPost = async (req: any, res: any) => {
 export const readPublishedPost = async (req: any, res: any) => {
     const currentDate = Date();
     try {
-        const post = await Post.findOne({id: req.params.id, published: true, postDate: {$lte: currentDate}}, (err: any, result: any) => {
+        const post = await Post.findOne({_id: req.params.id, published: true, postDate: {$lte: currentDate}}, (err: any, result: any) => {
             if (err) {
                 res.status(500).send('READ_POST_FAIL');
             }

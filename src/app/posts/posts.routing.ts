@@ -5,11 +5,12 @@ import { BrowserModule  } from '@angular/platform-browser';
 import {PostDetailComponent} from './post-detail/post-detail.component';
 import {BlogpostsComponent} from './blogposts/blogposts.component';
 import {PostFormComponent} from './post-form/post-form.component';
+import {AuthGuard} from '../user/auth.guard';
 
 export const routes: Routes = [
     { path: 'blog',       component: BlogpostsComponent },
-    { path: 'blog/create',       component: PostFormComponent },
-    { path: 'blog/update/:id',       component: PostFormComponent },
+    { path: 'blog/create',       component: PostFormComponent, canActivate: [AuthGuard], },
+    { path: 'blog/update/:id',       component: PostFormComponent, canActivate: [AuthGuard], },
     { path: 'blog/:id',       component: PostDetailComponent },
     // { path: 'register',    component: RegisterComponent },
     // {

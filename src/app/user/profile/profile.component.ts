@@ -43,8 +43,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         private postService: PostService,
         // private alertService: AlertService
     ) {
-        this.isUser = true;
-        this.currentUser = this.authService.currentUserValue;
         if (this.activatedRoute.snapshot.paramMap.get('id')) {
             const id = this.activatedRoute.snapshot.paramMap.get('id');
             this.isUser = false;
@@ -53,17 +51,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 .subscribe(
                     res => {
                         this.currentUser = res;
+                        this.state = {
+                            userProfileImage: this.currentUser.img ? this.BACKEND_URL + '/' + this.currentUser.img.imageURL : null
+                        }
+                        this.postService.getUserPostList(res._id)
+                            .pipe(first())
+                            .subscribe(
+                                res2 => {
+                                    this.posts = res2.posts;
+                                    this.post_length = res2.posts.length;
+                                }
+                            );
                     }
                 )
-            this.postService.getUserPostList(this.currentUser.id)
-                .pipe(first())
-                .subscribe(
-                    res => {
-                        this.posts = res.posts;
-                        this.post_length = res.posts.length;
-                    }
-                );
         } else {
+            this.isUser = true;
+            this.currentUser = this.authService.currentUserValue;
             this.postService.getMyPostList()
                 .pipe(first())
                 .subscribe(
@@ -72,11 +75,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
                         this.post_length = res.posts.length;
                     }
                 );
-        }
-        // this.posts = res.posts;
-        // this.post_length = res.post_length;
-        this.state = {
-            userProfileImage: this.currentUser.img ? this.BACKEND_URL + '/' + this.currentUser.img.imageURL : null
+            this.state = {
+                userProfileImage: this.currentUser.img ? this.BACKEND_URL + '/' + this.currentUser.img.imageURL : null
+            }
         }
     }
 
