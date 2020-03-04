@@ -38,9 +38,31 @@ export class ImageUploadComponent implements OnInit, AfterViewInit {
             this.state.file = file;
             this.state.imagePreviewUrl = reader.result;
             // Ignore console error that appears
-            this.formGroup.patchValue({
-                img: file
-            })
+            if (this.formControlName === 'img') {
+                this.formGroup.patchValue({
+                    img: file
+                })
+            }
+            if (this.formControlName === 'coverImg') {
+                this.formGroup.patchValue({
+                    coverImg: file
+                })
+            }
+            if (this.formControlName === 'img1') {
+                this.formGroup.patchValue({
+                    img1: file
+                })
+            }
+            if (this.formControlName === 'img2') {
+                this.formGroup.patchValue({
+                    img2: file
+                })
+            }
+            if (this.formControlName === 'img3') {
+                this.formGroup.patchValue({
+                    img3: file
+                })
+            }
         };
         reader.readAsDataURL(file);
     }

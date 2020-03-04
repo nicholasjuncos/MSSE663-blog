@@ -24,26 +24,34 @@ export const createPost = async (req: any, res: any) => {
             likeCount: 0
         };
         if (req.files) {
-            data['coverImg'] = {
-                imageURL: req.files.coverImg[0].path,
-                data: fs.readFileSync(req.files.coverImg[0].path),
-                contentType: req.files.coverImg[0].mimetype
-            };
-            data['img1'] = {
-                imageURL: req.files.img1[0].path,
-                data: fs.readFileSync(req.files.img1[0].path),
-                contentType: req.files.img1[0].mimetype
-            };
-            data['img2'] = {
-                imageURL: req.files.img2[0].path,
-                data: fs.readFileSync(req.files.img2[0].path),
-                contentType: req.files.img2[0].mimetype
-            };
-            data['img3'] = {
-                imageURL: req.files.img3[0].path,
-                data: fs.readFileSync(req.files.img3[0].path),
-                contentType: req.files.img3[0].mimetype
-            };
+            if (req.files.coverImg) {
+                data['coverImg'] = {
+                    imageURL: req.files.coverImg[0].path,
+                    data: fs.readFileSync(req.files.coverImg[0].path),
+                    contentType: req.files.coverImg[0].mimetype
+                };
+            }
+            if (req.files.img1) {
+                data['img1'] = {
+                    imageURL: req.files.img1[0].path,
+                    data: fs.readFileSync(req.files.img1[0].path),
+                    contentType: req.files.img1[0].mimetype
+                };
+            }
+            if (req.files.img2) {
+                data['img2'] = {
+                    imageURL: req.files.img2[0].path,
+                    data: fs.readFileSync(req.files.img2[0].path),
+                    contentType: req.files.img2[0].mimetype
+                };
+            }
+            if (req.files.img3) {
+                data['img3'] = {
+                    imageURL: req.files.img3[0].path,
+                    data: fs.readFileSync(req.files.img3[0].path),
+                    contentType: req.files.img3[0].mimetype
+                };
+            }
         }
         const post = await new Post(data);
         await post.save();
@@ -140,26 +148,34 @@ export const updatePost = async (req: any, res: any) => {
         newData['category'] = req.body.category;
     }
     if (req.files) {
-        newData['coverImg'] = {
-            imageURL: req.files.coverImg[0].path,
-            data: fs.readFileSync(req.files.coverImg[0].path),
-            contentType: req.files.coverImg[0].mimetype
-        };
-        newData['img1'] = {
-            imageURL: req.files.img1[0].path,
-            data: fs.readFileSync(req.files.img1[0].path),
-            contentType: req.files.img1[0].mimetype
-        };
-        newData['img2'] = {
-            imageURL: req.files.img2[0].path,
-            data: fs.readFileSync(req.files.img2[0].path),
-            contentType: req.files.img2[0].mimetype
-        };
-        newData['img3'] = {
-            imageURL: req.files.img3[0].path,
-            data: fs.readFileSync(req.files.img3[0].path),
-            contentType: req.files.img3[0].mimetype
-        };
+        if (req.files.coverImg) {
+            newData['coverImg'] = {
+                imageURL: req.files.coverImg[0].path,
+                data: fs.readFileSync(req.files.coverImg[0].path),
+                contentType: req.files.coverImg[0].mimetype
+            };
+        }
+        if (req.files.img1) {
+            newData['img1'] = {
+                imageURL: req.files.img1[0].path,
+                data: fs.readFileSync(req.files.img1[0].path),
+                contentType: req.files.img1[0].mimetype
+            };
+        }
+        if (req.files.img2) {
+            newData['img2'] = {
+                imageURL: req.files.img2[0].path,
+                data: fs.readFileSync(req.files.img2[0].path),
+                contentType: req.files.img2[0].mimetype
+            };
+        }
+        if (req.files.img3) {
+            newData['img3'] = {
+                imageURL: req.files.img3[0].path,
+                data: fs.readFileSync(req.files.img3[0].path),
+                contentType: req.files.img3[0].mimetype
+            };
+        }
     }
     Post.findByIdAndUpdate(req.params.id, {
             $set: newData

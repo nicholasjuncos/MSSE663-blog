@@ -77,16 +77,16 @@ export class PostFormComponent implements OnInit, OnDestroy {
         this.post$ = this.postService.getMyPost(id);
         this.post$.pipe(first()).subscribe(
             res => {
-                this.coverImg = res.coverImg ? this.BACKEND_URL + '/' + res.coverImg.imageURL : null;
-                this.img1 = res.img1 ? this.BACKEND_URL + '/' + res.img1.imageURL : null;
-                this.img2 = res.img2 ? this.BACKEND_URL + '/' + res.img2.imageURL : null;
-                this.img3 = res.img3 ? this.BACKEND_URL + '/' + res.img3.imageURL : null;
+                this.coverImg = res.coverImg ? this.BACKEND_URL + '/' + res.coverImg.imageURL : '../../../assets/img/image_placeholder.jpg';
+                this.img1 = res.img1 ? this.BACKEND_URL + '/' + res.img1.imageURL : '../../../assets/img/image_placeholder.jpg';
+                this.img2 = res.img2 ? this.BACKEND_URL + '/' + res.img2.imageURL : '../../../assets/img/image_placeholder.jpg';
+                this.img3 = res.img3 ? this.BACKEND_URL + '/' + res.img3.imageURL : '../../../assets/img/image_placeholder.jpg';
                 const date = new Date(res.postDate);
                 const dateObject = {
                     year: date.getUTCFullYear(),
                     month: date.getUTCMonth() + 1,
                     day: date.getUTCDate()
-                }
+                };
                 this.originalDate = date.toISOString().split('T')[0];
                 this.postForm = this.formBuilder.group({
                     author: [this.authorID],
@@ -122,13 +122,53 @@ export class PostFormComponent implements OnInit, OnDestroy {
     }
 
     createUpdatePost() {
+        const formData = new FormData();
         this.submitted = true;
         if (this.postForm.invalid) {
             return;
         }
+        const myFormValue = this.postForm.value;
+        for ( let i = 0; i < myFormValue.length; i++ ) {
+            for ( const key of myFormValue) {
+                formData.append(key, myFormValue[key]);
+            }
+        }
         this.postForm.controls['author'].setValue(this.authorID);
         const postDate = this.postForm.controls['postDate'].value;
         const newPostDate = new Date();
+        if (this.postForm.controls['coverImg'].value === '../../../assets/img/image_placeholder.jpg') {
+            this.postForm.controls['coverImg'].setValue(null);
+        } else if (this.postForm.controls['coverImg'].value !== null) {
+            if (this.postForm.controls['coverImg'].value !== '') {
+                const coverImg = this.postForm.controls['coverImg'].value;
+                this.postForm.controls['coverImg'].setValue({img: this.postForm.controls['coverImg'].value, name: this.postForm.controls['coverImg'].value.name});
+                formData.append('coverImg', coverImg, coverImg.name);
+            }
+        }
+        if (this.postForm.controls['img1'].value === '../../../assets/img/image_placeholder.jpg') {
+            this.postForm.controls['img1'].setValue(null);
+        } else if (this.postForm.controls['img1'].value !== null) {
+            if (this.postForm.controls['img1'].value !== '') {
+                this.postForm.controls['img1'].setValue({img: this.postForm.controls['img1'].value, name: this.postForm.controls['img1'].value.name});
+                formData.append('img1', this.postForm.controls['img1'].value, this.postForm.controls['img1'].value.name);
+            }
+        }
+        if (this.postForm.controls['img2'].value === '../../../assets/img/image_placeholder.jpg') {
+            this.postForm.controls['img2'].setValue(null);
+        } else if (this.postForm.controls['img2'].value !== null) {
+            if (this.postForm.controls['img2'].value !== '') {
+                this.postForm.controls['img2'].setValue({img: this.postForm.controls['img2'].value, name: this.postForm.controls['img2'].value.name});
+                formData.append('img2', this.postForm.controls['img2'].value, this.postForm.controls['img2'].value.name);
+            }
+        }
+        if (this.postForm.controls['img3'].value === '../../../assets/img/image_placeholder.jpg') {
+            this.postForm.controls['img3'].setValue(null);
+        } else if (this.postForm.controls['img3'].value !== null) {
+            if (this.postForm.controls['img3'].value !== '') {
+                this.postForm.controls['img3'].setValue({img: this.postForm.controls['img3'].value, name: this.postForm.controls['img3'].value.name});
+                formData.append('img3', this.postForm.controls['img3'].value, this.postForm.controls['img3'].value.name);
+            }
+        }
         newPostDate.setUTCDate(postDate.day);
         newPostDate.setUTCMonth(postDate.month - 1);
         newPostDate.setUTCFullYear(postDate.year);
@@ -136,7 +176,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
         this.loading = true;
         if (this.route.snapshot.paramMap.get('id')) {
             const id = this.route.snapshot.paramMap.get('id');
-            this.postService.updatePost(id, this.postForm.value)
+            this.postService.updatePost(id, formData)
                 .pipe(first())
                 .subscribe(
                     data => {
@@ -149,7 +189,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
                     }
                 );
         } else {
-            this.postService.createPost(this.postForm.value)
+            this.postService.createPost(formData)
                 .pipe(first())
                 .subscribe(
                     data => {
