@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         body.classList.add('login-page');
         const navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.add('navbar-transparent');
+        const footer = document.getElementsByTagName('footer')[0];
+        footer.classList.remove('footer-default');
 
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -52,6 +54,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         body.classList.remove('login-page');
         const navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.remove('navbar-transparent');
+        const footer = document.getElementsByTagName('footer')[0];
+        footer.classList.add('footer-default');
     }
 
     get f() { return this.loginForm.controls; }

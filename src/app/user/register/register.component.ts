@@ -43,6 +43,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         navbar.classList.add('navbar-absolute');
         navbar.classList.remove('fixed-top');
         navbar.classList.add('navbar-transparent');
+        const footer = document.getElementsByTagName('footer')[0];
+        footer.classList.remove('footer-default');
 
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -60,6 +62,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         navbar.classList.remove('navbar-absolute');
         navbar.classList.add('fixed-top');
         navbar.classList.remove('navbar-transparent');
+        const footer = document.getElementsByTagName('footer')[0];
+        footer.classList.add('footer-default');
     }
 
     // convenience getter for easy access to form fields
